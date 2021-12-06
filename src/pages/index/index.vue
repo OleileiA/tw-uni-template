@@ -4,11 +4,17 @@
 		<view>
 			<text class="title">{{title}}</text>
 		</view>
+		<u-icon name="phone"></u-icon>
 	</view>
 </template>
 
 <script>
+	import uIcon from "uview-ui/components/u-icon/u-icon";
+
 	export default {
+		components: {
+			'u-icon': uIcon,
+		},
 		data() {
 			return {
 				title: 'Hello'
