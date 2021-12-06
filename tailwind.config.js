@@ -1,4 +1,4 @@
-const { defaultPreset } = require('./tw_mp_preset/dist')
+const { defaultPreset } = require("./tw_mp_preset/dist");
 
 module.exports = {
   purge: [defaultPreset.purge.content],
@@ -12,4 +12,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
