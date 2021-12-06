@@ -2,7 +2,7 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view>
-			<text class="title">{{title}}</text>
+			<text class="text-green-500 p-1d5">{{title}}</text>
 		</view>
 		<u-icon name="phone"></u-icon>
 	</view>
