@@ -1,4 +1,3 @@
-const qs = require("qs");
 import rrjConfig from "../config/index";
 import { getWxUserInfo, loginRRJ } from "../api";
 
@@ -6,7 +5,7 @@ export async function wxLogin(tarUrl) {
   const storage = window.localStorage;
 
   // code and state
-  const queryParsed = qs.parse(getQuery(window.location.href));
+  const queryParsed = getUrlParams(window.location.href);
   const code = queryParsed.code;
   const state = queryParsed.state;
 
@@ -63,12 +62,6 @@ export async function wxLogin(tarUrl) {
   }
 }
 
-// 获取url的query部分
-function getQuery(url) {
-  const urlArr = url.split("?");
-  if (urlArr[1]) return urlArr[1];
-}
-
 // 判断本地的信息是否过期
 function isAuthFn(token) {
   if (token && token.id) {
@@ -104,4 +97,18 @@ async function RRJLogin(wxUserInfo) {
       "content-type": "application/x-www-form-urlencoded",
     },
   });
+}
+
+// 获取query对象
+export const getUrlParams = (url) => {
+  const uQuery = url.split('?');
+  const uGetArr = {};
+  if (uQuery.length > 1) {
+    const uParam = uQuery[1].split('&');
+    for (let i = 0; i < uParam.length; i++) {
+      const uTemp = uParam[i].split('=');
+      uGetArr[uTemp[0]] = uTemp[1];
+    }
+  }
+  return uGetArr;
 }
