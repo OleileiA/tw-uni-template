@@ -1,5 +1,6 @@
 import rrjConfig from "../config/index";
 import { getWxUserInfo, loginRRJ } from "../api";
+import { getUrlParams } from './util';
 
 export async function wxLogin(tarUrl) {
   const storage = window.localStorage;
@@ -97,18 +98,4 @@ async function RRJLogin(wxUserInfo) {
       "content-type": "application/x-www-form-urlencoded",
     },
   });
-}
-
-// 获取query对象
-export const getUrlParams = (url) => {
-  const uQuery = url.split('?');
-  const uGetArr = {};
-  if (uQuery.length > 1) {
-    const uParam = uQuery[1].split('&');
-    for (let i = 0; i < uParam.length; i++) {
-      const uTemp = uParam[i].split('=');
-      uGetArr[uTemp[0]] = uTemp[1];
-    }
-  }
-  return uGetArr;
 }
