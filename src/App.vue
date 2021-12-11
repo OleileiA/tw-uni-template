@@ -23,5 +23,5 @@ export default {
 
 <style lang="scss">
 @import "uview-ui/index.scss";
-@import "../node_modules/tailwindcss/utilities.css";
+@import "tailwindcss/utilities";
 </style>

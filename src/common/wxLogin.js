@@ -1,6 +1,6 @@
 import rrjConfig from "../config/index";
 import { getWxUserInfo, loginRRJ } from "../api";
-import { getUrlParams } from './util';
+import { getUrlParams } from "./util";
 
 export async function wxLogin(tarUrl) {
   const storage = window.localStorage;
