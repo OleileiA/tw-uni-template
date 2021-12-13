@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        'std': '30rpx'
-      }
+        std: "30rpx",
+      },
     },
   },
   variants: {

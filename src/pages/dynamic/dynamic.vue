@@ -34,16 +34,15 @@ export default {
 
     // 拼接富文本
     puzzleContent(contents) {
-      let puzzledContent = '';
+      let puzzledContent = "";
       if (contents?.length) {
         contents.forEach((item) => {
-          if (item.type === 'title') {
+          if (item.type === "title") {
             puzzledContent += this.formatTitleTypeContent(item);
-          }
-          else if (item.type === 'text') {
+          } else if (item.type === "text") {
             puzzledContent += this.formatTextTypeContent(item);
           }
-        })
+        });
       }
       this.content = puzzledContent;
     },
