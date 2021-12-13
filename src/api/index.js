@@ -35,3 +35,13 @@ export const loginRRJ = ({ avatar, nickname, uuid, openid, app }, config) =>
 // 使用用户id获取人人讲用户信息
 export const getUserInfo = ({ userId }) =>
   http.get(`/api/v3/users/${userId}/show`);
+
+// 获取动态
+export const getDynamicDetail = ({ exercise_id, label }) => {
+  return http.get("/api/v3/dynamic/exercise/info", {
+    params: {
+      exercise_id,
+      label,
+    },
+  });
+};
