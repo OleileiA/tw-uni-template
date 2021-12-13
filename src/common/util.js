@@ -1,3 +1,5 @@
+import { loginRRJ } from "../api";
+
 // 获取query对象
 export const getUrlParams = (url) => {
   const uQuery = url.split("?");
@@ -11,3 +13,29 @@ export const getUrlParams = (url) => {
   }
   return uGetArr;
 };
+
+// 重定向到拥有登录域名注册的html
+export function wxRedirects({ appid, state, backUrl }) {
+  window.location.replace(
+    `http://renrenjiang.cn/auth.html?appid=${appid}&state=${state}&backurl=${encodeURIComponent(
+      backUrl
+    )}`
+  );
+}
+
+// 微信信息注册登录RRJ
+export async function RRJLogin(wxUserInfo) {
+  const data = {
+    avatar: wxUserInfo.avatar,
+    nickname: wxUserInfo.nickname,
+    uuid: wxUserInfo.uuid,
+    openid: wxUserInfo.openid,
+    app: wxUserInfo.app,
+  };
+  window.localStorage.setItem("rrj_wxuser_info", JSON.stringify(wxUserInfo));
+  return await loginRRJ(data, {
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+    },
+  });
+}

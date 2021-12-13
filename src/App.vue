@@ -1,10 +1,10 @@
 <script>
-import { wxLogin } from "./common/wxLogin";
+import { appInit } from "./common/appInit";
 
 export default {
   onLaunch: async function () {
     console.log("App Launch");
-    this.wxLogin();
+    appInit();
   },
   onShow: function () {
     console.log("App Show");
@@ -12,12 +12,7 @@ export default {
   onHide: function () {
     console.log("App Hide");
   },
-  methods: {
-    async wxLogin() {
-      const res = await wxLogin();
-      console.log("wx login result ------------ ", res);
-    },
-  },
+  methods: {},
 };
 </script>
 

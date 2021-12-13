@@ -1,7 +1,8 @@
 import rrjConfig from "../config/index";
-import { getWxUserInfo, loginRRJ } from "../api";
-import { getUrlParams } from "./util";
+import { getUserInfo, getWxUserInfo } from "../api";
+import { getUrlParams, RRJLogin, wxRedirects } from "./util";
 
+// 微信跳转的登录方式
 export async function wxLogin(tarUrl) {
   const storage = window.localStorage;
 
@@ -34,24 +35,22 @@ export async function wxLogin(tarUrl) {
   // 登录流程
   if (code && state === "appwx") {
     const wxUserInfo = await getWxUserInfo({
-      params: {
-        code,
-        state,
-      },
+      code,
+      state,
     });
     if (wxUserInfo?.data?.app === "wechat") {
       const userInfo = await RRJLogin(wxUserInfo.data);
-      if (userInfo?.token && userInfo?.user) {
+      if (userInfo?.token && userInfo?.user?.id) {
         storage.setItem("rrj_user_info", JSON.stringify(userInfo.user));
         storage.setItem("rrj_user_token", JSON.stringify(userInfo.token));
-        return userInfo.user;
+        return { msg: 1, userInfo: userInfo.user, token: userInfo.token };
       } else {
         // TODO: 获取RRJ用户信息失败
-        return userInfo;
+        return { msg: -1, info: JSON.stringify(userInfo) };
       }
     } else {
       // TODO: 微信登录失败
-      return wxUserInfo.message;
+      return { msg: -2, info: wxUserInfo.message };
     }
   } else {
     const args = {
@@ -63,6 +62,33 @@ export async function wxLogin(tarUrl) {
   }
 }
 
+// 从app获取用户信息
+export async function getUserInfoFromApp() {
+  return new Promise((resolve) => {
+    window.AppBridge.callhandler("getRrjAccessToken", {}, async (data) => {
+      let result = data;
+      // android 传递过来的是json字符串
+      if (typeof data === "string" && data.indexOf("{") > -1) {
+        result = JSON.parse(data);
+      }
+      const userInfo = await getUserInfo({ userId: result.user_id });
+      if (userInfo?.id) {
+        window.localStorage.setItem("rrj_user_info", JSON.stringify(userInfo));
+        window.localStorage.setItem(
+          "rrj_user_token",
+          JSON.stringify({
+            id: result.token,
+          })
+        );
+        resolve({ msg: 1, userInfo: userInfo, token: { id: result.token } });
+      } else {
+        // -1表示RRJ本身的登录失败
+        resolve({ msg: -1, info: JSON.stringify(userInfo) });
+      }
+    });
+  });
+}
+
 // 判断本地的信息是否过期
 function isAuthFn(token) {
   if (token && token.id) {
@@ -72,30 +98,4 @@ function isAuthFn(token) {
     return numExpire >= numNow;
   }
   return false;
-}
-
-// 重定向到拥有登录域名注册的html
-function wxRedirects({ appid, state, backUrl }) {
-  window.location.replace(
-    `http://renrenjiang.cn/auth.html?appid=${appid}&state=${state}&backurl=${encodeURIComponent(
-      backUrl
-    )}`
-  );
-}
-
-// 人人讲的登录
-async function RRJLogin(wxUserInfo) {
-  const data = {
-    avatar: wxUserInfo.avatar,
-    nickname: wxUserInfo.nickname,
-    uuid: wxUserInfo.uuid,
-    openid: wxUserInfo.openid,
-    app: wxUserInfo.app,
-  };
-  window.localStorage.setItem("rrj_wxuser_info", JSON.stringify(wxUserInfo));
-  return await loginRRJ(data, {
-    header: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-  });
 }
