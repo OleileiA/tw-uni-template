@@ -2,7 +2,7 @@ import rrjConfig from "../config/index";
 import { getUrlParams, wxRedirects } from "./util";
 import { wxLogin, getUserInfoFromApp } from "./login";
 import { getWXSignature } from "../api";
-import { mapMutations } from "vuex";
+import store from "../store/index";
 
 export async function appInit() {
   const hostUrl = encodeURIComponent(window.location.href);
@@ -14,11 +14,11 @@ export async function appInit() {
   if (routeInfo.from === "app") {
     // app处理
     const userInfo = await getUserInfoFromApp();
-    _loginInfoDealer(userInfo);
+    return _loginInfoDealer(userInfo);
   } else {
     // 正常处理
     const userInfo = await wxLogin();
-    _loginInfoDealer(userInfo);
+    return _loginInfoDealer(userInfo);
   }
 }
 
@@ -39,20 +39,20 @@ async function wxSignature(hostUrl) {
 // 登陆之后的信息处理
 function _loginInfoDealer(userInfo) {
   if (userInfo?.msg === 1 && userInfo?.userInfo?.id) {
-    // 正常的登录，此时starage已经存储了userInfo和tokend
-    const mutationMap = mapMutations(["setUserInfo", "setToken"]);
-    mutationMap.setUserInfo(userInfo.userInfo);
-    mutationMap.setToken(userInfo.token);
+    store.commit("setUserInfo", userInfo.userInfo);
+    store.commit("setToken", userInfo.token);
     uni.showToast({
       title: "登陆成功",
       duration: 1000,
     });
+    return 1;
   } else if (userInfo?.msg === -1) {
     // 从人人讲的后台获取用户信息失败
     uni.showToast({
       title: `登录失败，${userInfo.info}`,
       duration: 2000,
     });
+    return 0;
   } else if (userInfo?.msg === -2) {
     // 可能是当前路由携带的code失效
     uni.showToast({
@@ -66,5 +66,7 @@ function _loginInfoDealer(userInfo) {
         backUrl: window.location.origin,
       });
     }, 2000);
+    return 0;
   }
+  return 1;
 }

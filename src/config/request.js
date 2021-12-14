@@ -11,6 +11,11 @@ module.exports = () => {
   // 请求拦截
   uni.$u.http.interceptors.request.use(
     (config) => {
+      // 为一些特殊的请求改变基础域名
+      if (config?.custom?.baseURL) {
+        config.baseURL = config.custom.baseURL;
+      }
+
       return config;
     },
     (config) => {
@@ -21,7 +26,12 @@ module.exports = () => {
   // 响应拦截
   uni.$u.http.interceptors.response.use(
     (response) => {
-      return response.data;
+      // 有的接口在data返回值中又嵌套一层
+      if (response.data && response.data.data) {
+        return response.data.data;
+      } else {
+        return response.data;
+      }
     },
     (response) => {
       return Promise.reject(response);

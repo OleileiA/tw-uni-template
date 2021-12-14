@@ -1,10 +1,7 @@
 <script>
-import { appInit } from "./common/appInit";
-
 export default {
   onLaunch: async function () {
     console.log("App Launch");
-    appInit();
   },
   onShow: function () {
     console.log("App Show");
@@ -19,4 +16,5 @@ export default {
 <style lang="scss">
 @import "uview-ui/index.scss";
 @import "tailwindcss/utilities";
+@import "css/apply.css";
 </style>

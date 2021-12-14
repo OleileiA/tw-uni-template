@@ -1,0 +1,10 @@
+/*  基于tailwindcss的css样式库  */
+
+/* flex容器 */
+.flex-wrapper-between {
+	@apply flex items-center justify-between;
+}
+
+.border-bottom {
+	@apply border-b border-gray-200;
+}

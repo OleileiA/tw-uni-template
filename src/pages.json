@@ -12,6 +12,12 @@
 	  "style": {
 		"navigationStyle": "custom"
 	  }
+	},
+	{
+	  "path": "pages/declaim/declaim",
+	  "style": {
+		"navigationStyle": "custom"
+	  }
 	}
   ],
   "globalStyle": {

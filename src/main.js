@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App";
 import store from "./store";
+import { appInit } from "./common/appInit";
 
 Vue.config.productionTip = false;
 
@@ -16,4 +17,6 @@ const app = new Vue({
 // 引入请求封装，将app参数传递到配置中
 require("./config/request.js")(app);
 
-app.$mount();
+appInit().then((res) => {
+  if (res) app.$mount();
+});

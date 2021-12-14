@@ -29,7 +29,8 @@ export async function wxLogin(tarUrl) {
 
   // 确定微信已登录过
   if (rrjUserInfo && rrjUserInfo.app === "wechat" && isAuthFn(token)) {
-    return rrjUserInfo;
+    // TODO： 免登陆
+    return { msg: 1, userInfo: rrjUserInfo, token: token };
   }
 
   // 登录流程
@@ -43,6 +44,7 @@ export async function wxLogin(tarUrl) {
       if (userInfo?.token && userInfo?.user?.id) {
         storage.setItem("rrj_user_info", JSON.stringify(userInfo.user));
         storage.setItem("rrj_user_token", JSON.stringify(userInfo.token));
+        // TODO: 正常登录成功
         return { msg: 1, userInfo: userInfo.user, token: userInfo.token };
       } else {
         // TODO: 获取RRJ用户信息失败

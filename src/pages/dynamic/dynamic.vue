@@ -33,16 +33,18 @@ export default {
         const parsedContent = JSON.parse(data.content);
         console.log("parsed", parsedContent);
         this.head = parsedContent?.template?.head?.content;
-        this.content = this.wrapperContent(parsedContent?.template?.mainStyle?.content,
-            this.puzzleContent(parsedContent?.contents));
-        console.log('this.content ------------', this.content);
+        this.content = this.wrapperContent(
+          parsedContent?.template?.mainStyle?.content,
+          this.puzzleContent(parsedContent?.contents)
+        );
+        console.log("this.content ------------", this.content);
       }
     },
 
     // content加上包裹
     wrapperContent(mainStyle, mainContent) {
       const splitArr = mainStyle.split("${mainContent}");
-      console.log('12312313', splitArr);
+      console.log("12312313", splitArr);
       return splitArr[0] + mainContent + splitArr[1];
     },
     // 拼接富文本

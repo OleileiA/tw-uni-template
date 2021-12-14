@@ -1,5 +1,6 @@
 import Vue from "vue";
 import uView from "uview-ui";
+import rrjConfig from "../config/index";
 Vue.use(uView);
 
 const http = uni.$u.http;
@@ -42,6 +43,20 @@ export const getDynamicDetail = ({ exercise_id, label }) => {
     params: {
       exercise_id,
       label,
+    },
+  });
+};
+
+/*
+ * K歌相关的接口
+ * */
+export const getWorksById = ({ id }) => {
+  return http.get("api/drawing/findById", {
+    params: {
+      id,
+    },
+    custom: {
+      baseURL: rrjConfig.apiBasePath2,
     },
   });
 };
