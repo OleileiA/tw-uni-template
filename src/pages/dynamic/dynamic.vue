@@ -1,5 +1,8 @@
 <template>
-  <view class="wrapper">
+  <view class="wrapper" :style="mainStyle">
+    <view>
+      <u-parse :content="head"></u-parse>
+    </view>
     <view class="px-std box-border">
       <u-parse :content="content"></u-parse>
     </view>
@@ -16,6 +19,7 @@ export default {
   },
   data: function () {
     return {
+      head: "",
       content: "",
     };
   },
@@ -28,10 +32,19 @@ export default {
       if (result === "ok") {
         const parsedContent = JSON.parse(data.content);
         console.log("parsed", parsedContent);
-        this.puzzleContent(parsedContent.contents);
+        this.head = parsedContent?.template?.head?.content;
+        this.content = this.wrapperContent(parsedContent?.template?.mainStyle?.content,
+            this.puzzleContent(parsedContent?.contents));
+        console.log('this.content ------------', this.content);
       }
     },
 
+    // content加上包裹
+    wrapperContent(mainStyle, mainContent) {
+      const splitArr = mainStyle.split("${mainContent}");
+      console.log('12312313', splitArr);
+      return splitArr[0] + mainContent + splitArr[1];
+    },
     // 拼接富文本
     puzzleContent(contents) {
       let puzzledContent = "";
@@ -44,7 +57,7 @@ export default {
           }
         });
       }
-      this.content = puzzledContent;
+      return puzzledContent;
     },
     // 处理text
     formatTextTypeContent(content) {
