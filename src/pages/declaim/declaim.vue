@@ -1,5 +1,7 @@
 <template>
-  <view class="fixed w-screen h-screen top-0 left-0">
+  <view v-if="richTextObj"
+        class="fixed w-screen h-screen top-0 left-0 bg-fixed bg-no-repeat bg-cover"
+        :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }">
     <comment-wrapper :comment-count="commentsNum">
       <template slot="body">
         <comment-entry :avatar="userInfo.avatar"></comment-entry>
@@ -37,6 +39,7 @@ export default {
   },
   data: function () {
     return {
+      richTextObj: null,
       comments: [],
       commentsNum: 0,
     };
@@ -49,9 +52,14 @@ export default {
   },
   methods: {
     async getWorksById(id = 268703) {
-      const { comments, commentsNum } = await getWorksById({ id });
+      const { content, comments, commentsNum } = await getWorksById({ id });
+      const richTextObj = JSON.parse(content);
+      this.richTextObj = richTextObj;
+      console.log('this.richTextObj', richTextObj);
+
       this.comments = comments;
       this.commentsNum = commentsNum;
+
     },
   },
 };
