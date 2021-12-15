@@ -4,6 +4,9 @@
 .flex-wrapper-between {
 	@apply flex items-center justify-between;
 }
+.flex-wrapper-center {
+	@apply flex items-center justify-center;
+}
 
 .border-bottom {
 	border: 0 solid;
