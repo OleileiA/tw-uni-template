@@ -4,7 +4,7 @@
       <template slot="body">
         <comment-entry :avatar="userInfo.avatar"></comment-entry>
         <comment-unit
-          v-for="item in comments"
+          v-for="(item, index) in comments"
           :key="item.id"
           :id="item.id"
           :user-id="item.rrjUserId"
@@ -13,6 +13,7 @@
           :content="item.comment"
           :create-time="item.createdAt"
           :update-time="item.updatedAt"
+          :with-border-bottom="index !== (comments.length - 1)"
         ></comment-unit>
       </template>
     </comment-wrapper>
