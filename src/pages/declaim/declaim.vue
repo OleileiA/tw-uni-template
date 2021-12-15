@@ -1,25 +1,27 @@
 <template>
-  <view v-if="richTextObj"
-        class="fixed w-screen h-screen top-0 left-0 bg-fixed bg-no-repeat bg-cover"
-        :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }">
-    <comment-wrapper :comment-count="commentsNum">
-      <template slot="body">
-        <comment-entry :avatar="userInfo.avatar"></comment-entry>
-        <comment-unit
-          v-for="(item, index) in comments"
-          :key="item.id"
-          :id="item.id"
-          :user-id="item.rrjUserId"
-          :nickname="item.nickname"
-          :avatar="item.avatar"
-          :content="item.comment"
-          :create-time="item.createdAt"
-          :update-time="item.updatedAt"
-          :with-border-bottom="index !== (comments.length - 1)"
-        ></comment-unit>
-        <text-guide-bar color="#F4350B" text="下载拾趣云，查看更多评论"></text-guide-bar>
-      </template>
-    </comment-wrapper>
+  <view class="fixed w-screen h-screen top-0 left-0">
+    <view v-if="richTextObj"
+          class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
+          :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }">
+      <comment-wrapper :comment-count="commentsNum">
+        <template slot="body">
+          <comment-entry :avatar="userInfo.avatar"></comment-entry>
+          <comment-unit
+              v-for="(item, index) in comments"
+              :key="item.id"
+              :id="item.id"
+              :user-id="item.rrjUserId"
+              :nickname="item.nickname"
+              :avatar="item.avatar"
+              :content="item.comment"
+              :create-time="item.createdAt"
+              :update-time="item.updatedAt"
+              :with-border-bottom="index !== (comments.length - 1)"
+          ></comment-unit>
+          <text-guide-bar color="#F4350B" text="下载拾趣云，查看更多评论"></text-guide-bar>
+        </template>
+      </comment-wrapper>
+    </view>
   </view>
 </template>
 <script>
