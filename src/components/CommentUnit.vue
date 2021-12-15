@@ -1,18 +1,19 @@
 <template>
-  <view class="flex-wrapper-between items-start">
+  <view class="relative flex-wrapper-between items-start">
+    <slot name="unit-slot"></slot>
     <!--  左半区  -->
-    <view class="flex-none w-17 h-full py-2 box-border">
+    <view class="relative flex-none w-17 h-full py-3 box-border">
+      <slot name="left-slot"></slot>
       <view class="relative w-17 h-17 rounded-full overflow-hidden">
         <img :src="avatar" alt="头像" class="w-full h-full" />
         <slot name="avatar-slot"></slot>
       </view>
     </view>
     <!--  右半区  -->
-    <view class="flex-auto pl-2d5 py-std box-border border-bottom">
+    <view class="relative flex-auto pl-2d5 py-std box-border border-bottom">
+      <slot name="right-slot"></slot>
       <view class="text-gray-400 text-base">{{ nickname }}</view>
-      <view class="py-3 text-gray-800 text-base">{{
-        content + content + content + content
-      }}</view>
+      <view class="py-3 text-gray-800 text-base">{{ content }}</view>
       <view class="flex-wrapper-between">
         <view class="text-gray-400 text-sm">{{ fromNow }}</view>
         <view class="flex-wrapper-between text-black text-base">
