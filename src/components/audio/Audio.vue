@@ -49,28 +49,25 @@ export default {
     cover: String,
     title: String,
     playing: Boolean,
+    value: Number,
     curTime: String,
     tolTime: String,
   },
   data() {
-    return {
-      value: 0,
-    };
+    return {};
   },
   methods: {
     clickPlay() {
-      console.log("click play");
       this.$emit("clickPlay");
     },
     clickPause() {
-      console.log("click pause");
       this.$emit("clickPause");
     },
     sliderChange(e) {
-      console.log("sliderChange", e);
+      this.$emit("sliderChange", e);
     },
     sliderChanging(e) {
-      console.log("sliderChanging", e);
+      this.$emit("sliderChanging", e);
     },
   },
 };

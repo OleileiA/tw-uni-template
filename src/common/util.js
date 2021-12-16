@@ -39,3 +39,13 @@ export async function RRJLogin(wxUserInfo) {
     },
   });
 }
+
+// 根据秒数计算标准时间格式
+export function secFormatTime(num) {
+  num = parseInt(num);
+  let min = parseInt(num / 60);
+  let minStr = min > 9 ? String(min) : "0" + min;
+  let sec = num % 60;
+  let secStr = sec > 9 ? String(sec) : "0" + sec;
+  return `${minStr}:${secStr}`;
+}

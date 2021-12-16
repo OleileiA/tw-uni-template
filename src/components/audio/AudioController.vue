@@ -4,17 +4,21 @@
       :title="title"
       :cover="cover"
       :playing="playing"
+      :value="value"
       :cur-time="curTime"
       :tol-time="tolTime"
       @clickPlay="playAudio"
       @clickPause="pauseAudio"
+      @sliderChange="sliderChange"
+      @sliderChanging="sliderChanging"
     ></custom-audio>
   </view>
 </template>
 <script>
 import Audio from "./Audio";
+import { secFormatTime } from "../../common/util";
 
-let innerAudioContext;
+let audioContext;
 
 export default {
   components: {
@@ -28,42 +32,63 @@ export default {
   data() {
     return {
       playing: false,
+      value: 0,
       curTime: "00:00",
       tolTime: "00:00",
     };
   },
   methods: {
     initAudio() {
-      innerAudioContext = uni.createInnerAudioContext();
-      innerAudioContext.volume = 0;
-      // innerAudioContext.src = this.src;
-      innerAudioContext.src =
-        "https://cdn-hz.renrenjiang.cn/shiquyun/uploads/songs/12e846971d6e47eaa6e18e6d15d1c81c.mp3";
-      innerAudioContext.onPlay(() => {
-        console.log("开始播放");
+      audioContext = uni.createInnerAudioContext();
+      audioContext.src = this.src;
+      audioContext.onPlay(() => {
         this.playing = true;
+        this.tolTime = secFormatTime(audioContext.duration);
       });
-      innerAudioContext.onPause(() => {
+      audioContext.onPause(() => {
         this.playing = false;
       });
-      innerAudioContext.onEnded(() => {
+      audioContext.onEnded(() => {
         this.playing = false;
+        this.curTime = "00:00";
+        this.value = 0;
       });
-      innerAudioContext.onError((res) => {
-        console.log(res.errMsg);
-        console.log(res.errCode);
+      audioContext.onTimeUpdate(() => {
+        // #ifdef H5
+        // #endif
+        this.curTime = secFormatTime(audioContext.currentTime);
+        this.value = parseInt(
+            (audioContext.currentTime / audioContext.duration) * 100
+        );
       });
-      innerAudioContext.onTimeUpdate((timeupdate) => {
-        console.log("res", timeupdate);
-      });
-      console.log("innerAudioContext", innerAudioContext);
-      // this.tolTime = innerAudioContext.duration;
+
+      // 延迟初始化时间
+      setTimeout(() => {
+        this.tolTime = secFormatTime(audioContext.duration);
+      }, 1000);
     },
     playAudio() {
-      innerAudioContext.play();
+      audioContext.play();
     },
     pauseAudio() {
-      innerAudioContext.pause();
+      audioContext.pause();
+    },
+    sliderChange(e) {
+      if (audioContext) {
+        const value = e.detail.value;
+        audioContext.seek((value / 100) * audioContext.duration);
+        setTimeout(() => {
+          audioContext.play();
+        });
+      }
+    },
+    sliderChanging(e) {
+      // TODO 节流
+      if (audioContext) {
+        if (this.playing) audioContext.pause();
+        const value = e.detail.value;
+        this.curTime = secFormatTime((value / 100) * audioContext.duration);
+      }
     },
   },
   mounted() {
