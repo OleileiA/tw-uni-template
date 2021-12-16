@@ -10,8 +10,10 @@
       </view>
     </view>
     <!--  右半区  -->
-    <view class="relative flex-auto pl-2d5 py-std box-border"
-          :class="{ 'border-bottom': withBorderBottom }">
+    <view
+      class="relative flex-auto pl-2d5 py-std box-border"
+      :class="{ 'border-bottom': withBorderBottom }"
+    >
       <slot name="right-slot"></slot>
       <view class="text-gray-400 text-base">{{ nickname }}</view>
       <view class="py-3 text-gray-800 text-base">{{ content }}</view>
@@ -42,8 +44,8 @@ export default {
 
     withBorderBottom: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
     fromNow: function () {
@@ -52,3 +54,9 @@ export default {
   },
 };
 </script>
+<style>
+.border-bottom {
+  border: 0 solid;
+  @apply border-b border-gray-200;
+}
+</style>
