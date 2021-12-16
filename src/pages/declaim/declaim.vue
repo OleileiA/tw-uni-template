@@ -5,11 +5,13 @@
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
-      <audio-controller
-        :cover="richTextObj.audio.cover"
-        :title="richTextObj.audio.title"
-        :src="richTextObj.audio.src"
-      ></audio-controller>
+      <view class="relative p-std">
+        <audio-controller
+            :cover="richTextObj.audio.cover"
+            :title="richTextObj.audio.title"
+            :src="richTextObj.audio.src"
+        ></audio-controller>
+      </view>
       <comment-wrapper :comment-count="commentsNum">
         <template slot="body">
           <comment-entry :avatar="userInfo.avatar"></comment-entry>
