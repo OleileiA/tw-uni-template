@@ -2,6 +2,7 @@ import rrjConfig from "../config/index";
 import { getUserInfo, getWxUserInfo } from "../api";
 import { getUrlParams, RRJLogin, wxRedirects } from "./util";
 
+// TODO: 需要注意code和state这两个query不要出现在业务开发的路由跳转中
 // 微信跳转的登录方式
 export async function wxLogin(tarUrl) {
   const storage = window.localStorage;
@@ -39,8 +40,8 @@ export async function wxLogin(tarUrl) {
       code,
       state,
     });
-    if (wxUserInfo?.data?.app === "wechat") {
-      const userInfo = await RRJLogin(wxUserInfo.data);
+    if (wxUserInfo?.app === "wechat") {
+      const userInfo = await RRJLogin(wxUserInfo);
       if (userInfo?.token && userInfo?.user?.id) {
         storage.setItem("rrj_user_info", JSON.stringify(userInfo.user));
         storage.setItem("rrj_user_token", JSON.stringify(userInfo.token));
@@ -58,7 +59,7 @@ export async function wxLogin(tarUrl) {
     const args = {
       appid: rrjConfig.wxAppid,
       state: "appwx",
-      backUrl: tarUrl || window.location.href,
+      backUrl: tarUrl || removeExtraQuery(window.location.href),
     };
     wxRedirects(args);
   }
@@ -89,6 +90,22 @@ export async function getUserInfoFromApp() {
       }
     });
   });
+}
+
+// 重定向之前去除路径中的code和state
+export function removeExtraQuery(url) {
+  const urlSplitArr = url.split("?");
+  let origin = urlSplitArr[0];
+  const queryStr = urlSplitArr[1];
+  if (queryStr) {
+    const queryStrArr = queryStr.split("&");
+    const tempArr = queryStrArr.filter((item) => {
+      return !(item.startsWith("code") || item.startsWith("state"));
+    });
+    return tempArr.length ? origin + "?" + tempArr.join("&") : origin;
+  } else {
+    return origin;
+  }
 }
 
 // 判断本地的信息是否过期

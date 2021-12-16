@@ -5,8 +5,11 @@
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
-      <custom-audio :cover="richTextObj.audio.cover"
-                    :title="richTextObj.audio.title"></custom-audio>
+      <audio-controller
+        :cover="richTextObj.audio.cover"
+        :title="richTextObj.audio.title"
+        :src="richTextObj.audio.src"
+      ></audio-controller>
       <comment-wrapper :comment-count="commentsNum">
         <template slot="body">
           <comment-entry :avatar="userInfo.avatar"></comment-entry>
@@ -38,7 +41,7 @@ import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import TextGuideBar from "../../components/guide/TextGuideBar";
-import Audio from "../../components/audio/Audio";
+import AudioController from "../../components/audio/AudioController";
 
 export default {
   components: {
@@ -46,7 +49,7 @@ export default {
     CommentEntry,
     CommentUnit,
     TextGuideBar,
-    "custom-audio": Audio,
+    AudioController,
   },
   data: function () {
     return {
@@ -66,7 +69,11 @@ export default {
       const { content, comments, commentsNum } = await getWorksById({ id });
       const richTextObj = JSON.parse(content);
       this.richTextObj = richTextObj;
-      console.log("this.richTextObj", richTextObj, this.richTextObj.audio.cover);
+      console.log(
+        "this.richTextObj",
+        richTextObj,
+        this.richTextObj.audio.cover
+      );
       this.comments = comments;
       this.commentsNum = commentsNum;
     },

@@ -8,13 +8,13 @@ module.exports = {
   theme: {
     extend: {
       color: {
-        'theme': '#FF0000'
+        theme: "#FF0000",
       },
       spacing: {
         "2d5": "20rpx",
         std: "30rpx",
         17: "68rpx",
-        "13.75": "110rpx",
+        13.75: "110rpx",
         "18d75": "150rpx",
       },
       fontSize: {

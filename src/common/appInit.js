@@ -1,6 +1,6 @@
 import rrjConfig from "../config/index";
 import { getUrlParams, wxRedirects } from "./util";
-import { wxLogin, getUserInfoFromApp } from "./login";
+import { wxLogin, getUserInfoFromApp, removeExtraQuery } from "./login";
 import { getWXSignature } from "../api";
 import store from "../store/index";
 
@@ -55,17 +55,13 @@ function _loginInfoDealer(userInfo) {
     return 0;
   } else if (userInfo?.msg === -2) {
     // 可能是当前路由携带的code失效
-    uni.showToast({
-      title: `${userInfo.info}`,
-      duration: 2000,
-    });
     setTimeout(() => {
       wxRedirects({
         appid: rrjConfig.wxAppid,
         state: "appwx",
-        backUrl: window.location.origin,
+        backUrl: removeExtraQuery(window.location.href),
       });
-    }, 2000);
+    });
     return 0;
   }
   return 1;
