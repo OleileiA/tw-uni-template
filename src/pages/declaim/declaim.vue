@@ -5,15 +5,17 @@
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
-      <custom-head-1
-        :avatar="user.avatarUrl"
-        :nickname="user.nickname"
-        :followed="user.followed"
-        :title="music.title"
-        :created-at="music.createdAt"
-        :read-num="visitNum"
-        :author="music.singer"
-      ></custom-head-1>
+      <view class="pt-8d75 pb-std">
+        <custom-head-1
+            :avatar="user.avatarUrl"
+            :nickname="user.nickname"
+            :followed="user.followed"
+            :title="music.title"
+            :created-at="music.createdAt"
+            :read-num="visitNum"
+            :author="music.singer"
+        ></custom-head-1>
+      </view>
       <view class="relative p-std">
         <audio-controller
           :cover="richTextObj.audio.cover"

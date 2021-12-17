@@ -14,6 +14,7 @@ module.exports = {
         "2d5": "20rpx",
         std: "30rpx",
         "8d5": "68rpx",
+        "8d75": "70rpx",
         13.75: "110rpx",
         15: "120rpx",
         "18d75": "150rpx",
