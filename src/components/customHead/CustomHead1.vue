@@ -7,11 +7,13 @@
       朗诵人：{{ nickname }}
     </view>
     <view
-        @click="clickFollow"
+      @click="clickFollow"
       class="my-0 mx-auto w-18d75 h-7 text-white text-base leading-7 text-center bg-theme rounded-3d5xl"
       >关注</view
     >
-    <view class="mt-5 text-white text-2xl text-center font-black">{{ title }}</view>
+    <view class="mt-5 text-white text-2xl text-center font-black">{{
+      title
+    }}</view>
     <view class="flex-wrapper-center mt-1 text-white text-sm">
       <view class="px-3">{{ createdAt | date("mm-dd") }}</view>
       <view class="px-3">阅读 {{ readNum }}</view>
@@ -32,9 +34,9 @@ export default {
   },
   methods: {
     clickFollow() {
-      console.log('clickFollow');
+      console.log("clickFollow");
       this.$emit("clickFollow");
-    }
-  }
+    },
+  },
 };
 </script>

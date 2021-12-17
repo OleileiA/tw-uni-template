@@ -1,25 +1,25 @@
 <template>
-<!-- 固定容器 -->
+  <!-- 固定容器 -->
   <view class="fixed w-screen h-screen top-0 left-0">
-<!-- 背景  -->
+    <!-- 背景  -->
     <view
       v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
-<!--   自定义头部   -->
+      <!--   自定义头部   -->
       <view class="pt-8d75 pb-std">
         <custom-head-1
-            :avatar="user.avatarUrl"
-            :nickname="user.nickname"
-            :followed="user.followed"
-            :title="music.title"
-            :created-at="music.createdAt"
-            :read-num="visitNum"
-            :author="music.singer"
+          :avatar="user.avatarUrl"
+          :nickname="user.nickname"
+          :followed="user.followed"
+          :title="music.title"
+          :created-at="music.createdAt"
+          :read-num="visitNum"
+          :author="music.singer"
         ></custom-head-1>
       </view>
-<!--   音频播放器   -->
+      <!--   音频播放器   -->
       <view class="relative p-std">
         <audio-controller
           :cover="richTextObj.audio.cover"
@@ -27,7 +27,7 @@
           :src="richTextObj.audio.src"
         ></audio-controller>
       </view>
-<!--  富文本   -->
+      <!--  富文本   -->
       <view>
         <u-parse :content="content"></u-parse>
       </view>
@@ -59,14 +59,14 @@
 <script>
 import { mapState } from "vuex";
 import { getWorksById } from "../../api";
-import puzzleRichText from '../../common/mixins/puzzleRichText';
+import puzzleRichText from "../../common/mixins/puzzleRichText";
 import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import TextGuideBar from "../../components/guide/TextGuideBar";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
-import uParse from 'uview-ui/components/u-parse/u-parse';
+import uParse from "uview-ui/components/u-parse/u-parse";
 
 export default {
   components: {
@@ -76,7 +76,7 @@ export default {
     TextGuideBar,
     AudioController,
     CustomHead1,
-    uParse
+    uParse,
   },
   mixins: [puzzleRichText],
   data: function () {
@@ -87,7 +87,7 @@ export default {
       user: null,
       music: null,
       visitNum: 0,
-      content: '',
+      content: "",
     };
   },
   computed: {

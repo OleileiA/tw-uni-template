@@ -1,4 +1,4 @@
-import { getCustomTitleHtml } from '../../config/dynamicCustomTitle';
+import { getCustomTitleHtml } from "../../config/dynamicCustomTitle";
 
 export default {
   methods: {
@@ -9,8 +9,7 @@ export default {
         contents.forEach((item) => {
           if (item.type === "title") {
             puzzledContent += this.formatTitleTypeContent(item);
-          }
-          else if (item.type === "text") {
+          } else if (item.type === "text") {
             puzzledContent += this.formatTextTypeContent(item);
           }
         });
@@ -34,5 +33,5 @@ export default {
       }
       return getCustomTitleHtml(content.text, content.model, content.formats);
     },
-  }
-}
+  },
+};
