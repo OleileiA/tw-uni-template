@@ -1,10 +1,13 @@
 <template>
+<!-- 固定容器 -->
   <view class="fixed w-screen h-screen top-0 left-0">
+<!-- 背景  -->
     <view
       v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
+<!--   自定义头部   -->
       <view class="pt-8d75 pb-std">
         <custom-head-1
             :avatar="user.avatarUrl"
@@ -16,6 +19,7 @@
             :author="music.singer"
         ></custom-head-1>
       </view>
+<!--   音频播放器   -->
       <view class="relative p-std">
         <audio-controller
           :cover="richTextObj.audio.cover"
@@ -23,6 +27,11 @@
           :src="richTextObj.audio.src"
         ></audio-controller>
       </view>
+<!--  富文本   -->
+      <view>
+        <u-parse :content="content"></u-parse>
+      </view>
+
       <comment-wrapper :comment-count="commentsNum">
         <template slot="body">
           <comment-entry :avatar="userInfo.avatar"></comment-entry>
@@ -50,12 +59,14 @@
 <script>
 import { mapState } from "vuex";
 import { getWorksById } from "../../api";
+import puzzleRichText from '../../common/mixins/puzzleRichText';
 import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import TextGuideBar from "../../components/guide/TextGuideBar";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
+import uParse from 'uview-ui/components/u-parse/u-parse';
 
 export default {
   components: {
@@ -65,7 +76,9 @@ export default {
     TextGuideBar,
     AudioController,
     CustomHead1,
+    uParse
   },
+  mixins: [puzzleRichText],
   data: function () {
     return {
       richTextObj: null,
@@ -74,6 +87,7 @@ export default {
       user: null,
       music: null,
       visitNum: 0,
+      content: '',
     };
   },
   computed: {
@@ -86,18 +100,13 @@ export default {
     async getWorksById(id = 268703) {
       const { content, comments, commentsNum, user, music, visitNum } =
         await getWorksById({ id });
-      const richTextObj = JSON.parse(content);
-      this.richTextObj = richTextObj;
-      console.log(
-        "this.richTextObj",
-        richTextObj,
-        this.richTextObj.audio.cover
-      );
+      this.richTextObj = JSON.parse(content);
       this.comments = comments;
       this.commentsNum = commentsNum;
       this.user = user;
       this.music = music;
       this.visitNum = visitNum;
+      this.content = this.puzzleContent(this.richTextObj.contents);
     },
   },
 };
