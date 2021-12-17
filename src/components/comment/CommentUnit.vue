@@ -2,9 +2,9 @@
   <view class="relative flex-wrapper-between items-start">
     <slot name="unit-slot"></slot>
     <!--  左半区  -->
-    <view class="relative flex-none w-17 h-full py-3 box-border">
+    <view class="relative flex-none w-8d5 h-full py-3 box-border">
       <slot name="left-slot"></slot>
-      <view class="relative w-17 h-17 rounded-full overflow-hidden">
+      <view class="relative w-8d5 h-8d5 rounded-full overflow-hidden">
         <img :src="avatar" alt="头像" class="w-full h-full" />
         <slot name="avatar-slot"></slot>
       </view>

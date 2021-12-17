@@ -5,11 +5,20 @@
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
+      <custom-head-1
+        :avatar="user.avatarUrl"
+        :nickname="user.nickname"
+        :followed="user.followed"
+        :title="music.title"
+        :created-at="music.createdAt"
+        :read-num="visitNum"
+        :author="music.singer"
+      ></custom-head-1>
       <view class="relative p-std">
         <audio-controller
-            :cover="richTextObj.audio.cover"
-            :title="richTextObj.audio.title"
-            :src="richTextObj.audio.src"
+          :cover="richTextObj.audio.cover"
+          :title="richTextObj.audio.title"
+          :src="richTextObj.audio.src"
         ></audio-controller>
       </view>
       <comment-wrapper :comment-count="commentsNum">
@@ -44,6 +53,7 @@ import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import TextGuideBar from "../../components/guide/TextGuideBar";
 import AudioController from "../../components/audio/AudioController";
+import CustomHead1 from "../../components/customHead/CustomHead1";
 
 export default {
   components: {
@@ -52,12 +62,16 @@ export default {
     CommentUnit,
     TextGuideBar,
     AudioController,
+    CustomHead1,
   },
   data: function () {
     return {
       richTextObj: null,
       comments: [],
       commentsNum: 0,
+      user: null,
+      music: null,
+      visitNum: 0,
     };
   },
   computed: {
@@ -68,7 +82,8 @@ export default {
   },
   methods: {
     async getWorksById(id = 268703) {
-      const { content, comments, commentsNum } = await getWorksById({ id });
+      const { content, comments, commentsNum, user, music, visitNum } =
+        await getWorksById({ id });
       const richTextObj = JSON.parse(content);
       this.richTextObj = richTextObj;
       console.log(
@@ -78,6 +93,9 @@ export default {
       );
       this.comments = comments;
       this.commentsNum = commentsNum;
+      this.user = user;
+      this.music = music;
+      this.visitNum = visitNum;
     },
   },
 };

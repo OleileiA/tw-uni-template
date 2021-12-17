@@ -58,7 +58,7 @@ export default {
         // #endif
         this.curTime = secFormatTime(audioContext.currentTime);
         this.value = parseInt(
-            (audioContext.currentTime / audioContext.duration) * 100
+          (audioContext.currentTime / audioContext.duration) * 100
         );
       });
 
