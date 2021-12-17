@@ -7,52 +7,60 @@
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
-      <!--   自定义头部   -->
-      <view class="pt-8d75 pb-std">
-        <custom-head-1
-          :avatar="user.avatarUrl"
-          :nickname="user.nickname"
-          :followed="user.followed"
-          :title="music.title"
-          :created-at="music.createdAt"
-          :read-num="visitNum"
-          :author="music.singer"
-        ></custom-head-1>
-      </view>
-      <!--   音频播放器   -->
-      <view class="relative p-std">
-        <audio-controller
-          :cover="richTextObj.audio.cover"
-          :title="richTextObj.audio.title"
-          :src="richTextObj.audio.src"
-        ></audio-controller>
-      </view>
-      <!--  富文本   -->
-      <view>
-        <u-parse :content="content"></u-parse>
-      </view>
-
-      <comment-wrapper :comment-count="commentsNum">
-        <template slot="body">
-          <comment-entry :avatar="userInfo.avatar"></comment-entry>
-          <comment-unit
-            v-for="(item, index) in comments"
-            :key="item.id"
-            :id="item.id"
-            :user-id="item.rrjUserId"
-            :nickname="item.nickname"
-            :avatar="item.avatar"
-            :content="item.comment"
-            :create-time="item.createdAt"
-            :update-time="item.updatedAt"
-            :with-border-bottom="index !== comments.length - 1"
-          ></comment-unit>
-          <text-guide-bar
-            color="#F4350B"
-            text="下载拾趣云，查看更多评论"
-          ></text-guide-bar>
-        </template>
-      </comment-wrapper>
+      <mescroll-body
+          class="overflow-scroll"
+          ref="mescrollRef"
+          @init="mescrollInit"
+          @down="downCallback"
+          @up="upCallback"
+          :down="downOption"
+      >
+        <!--   自定义头部   -->
+        <view class="pt-8d75 pb-std">
+          <custom-head-1
+              :avatar="user.avatarUrl"
+              :nickname="user.nickname"
+              :followed="user.followed"
+              :title="music.title"
+              :created-at="music.createdAt"
+              :read-num="visitNum"
+              :author="music.singer"
+          ></custom-head-1>
+        </view>
+        <!--   音频播放器   -->
+        <view class="relative p-std">
+          <audio-controller
+              :cover="richTextObj.audio.cover"
+              :title="richTextObj.audio.title"
+              :src="richTextObj.audio.src"
+          ></audio-controller>
+        </view>
+        <!--  富文本   -->
+        <view>
+          <u-parse :content="content"></u-parse>
+        </view>
+        <comment-wrapper :comment-count="commentsNum">
+          <template slot="body">
+            <comment-entry :avatar="userInfo.avatar"></comment-entry>
+            <comment-unit
+                v-for="(item, index) in comments"
+                :key="item.id"
+                :id="item.id"
+                :user-id="item.rrjUserId"
+                :nickname="item.nickname"
+                :avatar="item.avatar"
+                :content="item.comment"
+                :create-time="item.createdAt"
+                :update-time="item.updatedAt"
+                :with-border-bottom="index !== comments.length - 1"
+            ></comment-unit>
+            <text-guide-bar
+                color="#F4350B"
+                text="下载拾趣云，查看更多评论"
+            ></text-guide-bar>
+          </template>
+        </comment-wrapper>
+      </mescroll-body>
     </view>
   </view>
 </template>
@@ -67,6 +75,8 @@ import TextGuideBar from "../../components/guide/TextGuideBar";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
+import MescrollMixin from "mescroll-uni/mescroll-mixins";
+import MescrollBody from "mescroll-uni/mescroll-body";
 
 export default {
   components: {
@@ -77,10 +87,15 @@ export default {
     AudioController,
     CustomHead1,
     uParse,
+    MescrollBody
   },
-  mixins: [puzzleRichText],
+  mixins: [puzzleRichText, MescrollMixin],
   data: function () {
     return {
+      downOption: {
+        use: false, // 禁止下拉
+      },
+
       richTextObj: null,
       comments: [],
       commentsNum: 0,
@@ -111,3 +126,11 @@ export default {
   },
 };
 </script>
+<style>
+.overflow-scroll {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: auto !important;
+}
+</style>
