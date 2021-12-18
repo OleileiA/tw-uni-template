@@ -5,7 +5,8 @@
     <view
       v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
-      :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
+      :style="{ backgroundImage: 'url(' + richTextObj.background + ')',
+      backgroundColor: backgroundColor }"
     >
       <mescroll-body
         class="overflow-scroll"
