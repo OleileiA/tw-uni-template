@@ -67,7 +67,7 @@
 <script>
 import { mapState } from "vuex";
 import { getWorksById } from "../../api";
-import puzzleRichText from "../../common/mixins/puzzleRichText";
+import puzzleRichText from "../../mixins/puzzleRichText";
 import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
@@ -113,15 +113,20 @@ export default {
   },
   methods: {
     async getWorksById(id = 268703) {
-      const { content, comments, commentsNum, user, music, visitNum } =
+      const { template, content, comments, commentsNum, user, music, visitNum } =
         await getWorksById({ id });
-      this.richTextObj = JSON.parse(content);
-      this.comments = comments;
-      this.commentsNum = commentsNum;
-      this.user = user;
-      this.music = music;
-      this.visitNum = visitNum;
-      this.content = this.puzzleContent(this.richTextObj.contents);
+      if (template) { // 带有template表示
+        this.richTextObj = JSON.parse(content);
+        this.comments = comments;
+        this.commentsNum = commentsNum;
+        this.user = user;
+        this.music = music;
+        this.visitNum = visitNum;
+        this.content = this.puzzleContent(this.richTextObj.contents);
+        console.log("richTextObj richTextObj richTextObj", JSON.parse(content));
+      } else {
+        // 最普通的模板
+      }
     },
   },
 };

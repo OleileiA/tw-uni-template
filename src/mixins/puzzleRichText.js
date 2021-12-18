@@ -1,4 +1,4 @@
-import { getCustomTitleHtml } from "../../config/dynamicCustomTitle";
+import { getCustomTitleHtml } from "../config/dynamicCustomTitle";
 
 export default {
   methods: {
