@@ -12,11 +12,13 @@ module.exports = {
       },
       spacing: {
         "2d5": "20rpx",
-        std: "30rpx",
+        "std": "30rpx",
         "8d5": "68rpx",
         "8d75": "70rpx",
-        13.75: "110rpx",
-        15: "120rpx",
+        "11d25": "90rpx",
+        "13.75": "110rpx",
+        "15": "120rpx",
+        "16d25": "130rpx",
         "18d75": "150rpx",
       },
       fontSize: {

@@ -42,6 +42,14 @@
         <view :style="{ color: textFontColor, padding: padding }">
           <u-parse :content="content"></u-parse>
         </view>
+        <!--   用户信息    -->
+        <view class="px-std">
+          <user-info-guide-bar :avatar="user.avatarUrl"
+                               :nickname="user.nickname"
+                               :fans="user.fansCount"
+                               :works="user.drawCount"
+                               :followed="user.followed"></user-info-guide-bar>
+        </view>
         <comment-wrapper :comment-count="commentsNum">
           <template slot="body">
             <comment-entry :avatar="userInfo.avatar"></comment-entry>
@@ -70,7 +78,6 @@
 <script>
 import { mapState } from "vuex";
 import { getWorksById, getFollowsRankList } from "../../api";
-import puzzleRichText from "../../mixins/puzzleRichText";
 import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
@@ -78,9 +85,11 @@ import TextGuideBar from "../../components/guide/TextGuideBar";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
-import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import MescrollBody from "mescroll-uni/mescroll-body";
-import mainStyle from "../../mixins/mainStyle";
+import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
+import MainStyleMixin from "../../mixins/MainStyleMixin";
+import MescrollMixin from "mescroll-uni/mescroll-mixins";
+import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 
 export default {
   components: {
@@ -92,8 +101,9 @@ export default {
     CustomHead1,
     uParse,
     MescrollBody,
+    UserInfoGuideBar
   },
-  mixins: [puzzleRichText, MescrollMixin, mainStyle],
+  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin],
   data: function () {
     return {
       downOption: {
