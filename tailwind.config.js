@@ -9,17 +9,21 @@ module.exports = {
     extend: {
       colors: {
         theme: "#FF0000",
+        sharedark: "#1B1B1C"
       },
       spacing: {
         "2d5": "20rpx",
         "std": "30rpx",
+        "4d5": "36rpx",
         "8d5": "68rpx",
         "8d75": "70rpx",
+        "10d5": "84rpx",
         "11d25": "90rpx",
         "13.75": "110rpx",
         "15": "120rpx",
         "16d25": "130rpx",
         "18d75": "150rpx",
+        "35d5": "284rpx",
       },
       fontSize: {
         std: "30rpx",

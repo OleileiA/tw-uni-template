@@ -50,6 +50,16 @@
                                :works="user.drawCount"
                                :followed="user.followed"></user-info-guide-bar>
         </view>
+        <!--   share     -->
+        <view class="p-std">
+          <view class="mb-std text-white text-base text-center text-opacity-70">
+            创作不易快来分享支持一下
+          </view>
+          <view class="flex-wrapper-around">
+            <wechat-share></wechat-share>
+            <timeline-share></timeline-share>
+          </view>
+        </view>
         <comment-wrapper :comment-count="commentsNum">
           <template slot="body">
             <comment-entry :avatar="userInfo.avatar"></comment-entry>
@@ -87,6 +97,8 @@ import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
 import MescrollBody from "mescroll-uni/mescroll-body";
 import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
+import WechatShare from "../../components/share/WechatShare";
+import TimelineShare from "../../components/share/TimelineShare";
 import MainStyleMixin from "../../mixins/MainStyleMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
@@ -101,7 +113,9 @@ export default {
     CustomHead1,
     uParse,
     MescrollBody,
-    UserInfoGuideBar
+    UserInfoGuideBar,
+    WechatShare,
+    TimelineShare
   },
   mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin],
   data: function () {

@@ -7,6 +7,9 @@
 .flex-wrapper-center {
 	@apply flex items-center justify-center;
 }
+.flex-wrapper-around {
+	@apply flex items-center justify-around;
+}
 
 /* 超出显示省略号 */
 .line1-overflow {
