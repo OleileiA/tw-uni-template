@@ -8,31 +8,31 @@
       :style="{ backgroundImage: 'url(' + richTextObj.background + ')' }"
     >
       <mescroll-body
-          class="overflow-scroll"
-          ref="mescrollRef"
-          @init="mescrollInit"
-          @down="downCallback"
-          @up="upCallback"
-          :down="downOption"
+        class="overflow-scroll"
+        ref="mescrollRef"
+        @init="mescrollInit"
+        @down="downCallback"
+        @up="upCallback"
+        :down="downOption"
       >
         <!--   自定义头部   -->
         <view class="pt-8d75 pb-std">
           <custom-head-1
-              :avatar="user.avatarUrl"
-              :nickname="user.nickname"
-              :followed="user.followed"
-              :title="music.title"
-              :created-at="music.createdAt"
-              :read-num="visitNum"
-              :author="music.singer"
+            :avatar="user.avatarUrl"
+            :nickname="user.nickname"
+            :followed="user.followed"
+            :title="music.title"
+            :created-at="music.createdAt"
+            :read-num="visitNum"
+            :author="music.singer"
           ></custom-head-1>
         </view>
         <!--   音频播放器   -->
         <view class="relative p-std">
           <audio-controller
-              :cover="richTextObj.audio.cover"
-              :title="richTextObj.audio.title"
-              :src="richTextObj.audio.src"
+            :cover="richTextObj.audio.cover"
+            :title="richTextObj.audio.title"
+            :src="richTextObj.audio.src"
           ></audio-controller>
         </view>
         <!--  富文本   -->
@@ -43,20 +43,20 @@
           <template slot="body">
             <comment-entry :avatar="userInfo.avatar"></comment-entry>
             <comment-unit
-                v-for="(item, index) in comments"
-                :key="item.id"
-                :id="item.id"
-                :user-id="item.rrjUserId"
-                :nickname="item.nickname"
-                :avatar="item.avatar"
-                :content="item.comment"
-                :create-time="item.createdAt"
-                :update-time="item.updatedAt"
-                :with-border-bottom="index !== comments.length - 1"
+              v-for="(item, index) in comments"
+              :key="item.id"
+              :id="item.id"
+              :user-id="item.rrjUserId"
+              :nickname="item.nickname"
+              :avatar="item.avatar"
+              :content="item.comment"
+              :create-time="item.createdAt"
+              :update-time="item.updatedAt"
+              :with-border-bottom="index !== comments.length - 1"
             ></comment-unit>
             <text-guide-bar
-                color="#F4350B"
-                text="下载拾趣云，查看更多评论"
+              color="#F4350B"
+              text="下载拾趣云，查看更多评论"
             ></text-guide-bar>
           </template>
         </comment-wrapper>
@@ -87,7 +87,7 @@ export default {
     AudioController,
     CustomHead1,
     uParse,
-    MescrollBody
+    MescrollBody,
   },
   mixins: [puzzleRichText, MescrollMixin],
   data: function () {
@@ -113,9 +113,17 @@ export default {
   },
   methods: {
     async getWorksById(id = 268703) {
-      const { template, content, comments, commentsNum, user, music, visitNum } =
-        await getWorksById({ id });
-      if (template) { // 带有template表示
+      const {
+        template,
+        content,
+        comments,
+        commentsNum,
+        user,
+        music,
+        visitNum,
+      } = await getWorksById({ id });
+      if (template) {
+        // 带有template表示带有模板
         this.richTextObj = JSON.parse(content);
         this.comments = comments;
         this.commentsNum = commentsNum;

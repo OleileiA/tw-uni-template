@@ -123,7 +123,7 @@ const corePlugins = [
     'placeholderOpacity',
     'pointerEvents',
     'position',
-    // 'inset', // 用不着
+    'inset',
     'resize',
     // 'boxShadow', // *,::before,::after 限制
     // 'ringWidth', // *,::before,::after 限制
@@ -182,8 +182,8 @@ const corePlugins = [
 ];
 
 const escapeMap = {
-    '/': '-div-',
-    '.': '-dot-'
+    '/': 's',
+    '.': 'd'
 };
 /**
  * 转义工作
