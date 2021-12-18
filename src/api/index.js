@@ -1,17 +1,18 @@
 import Vue from "vue";
 import uView from "uview-ui";
 import rrjConfig from "../config/index";
+
 Vue.use(uView);
 
 const http = uni.$u.http;
 
 // 微信配置
-export const getWXSignature = ({ hostUrl }) => {
+export const getWXSignature = ({hostUrl}) => {
   return http.get(`/api/v3/wechat/jsconfig?url=${hostUrl}`);
 };
 
 // 获取微信的用户信息
-export const getWxUserInfo = ({ code, state }) =>
+export const getWxUserInfo = ({code, state}) =>
   http.get("/api/v3/account/wechat/userinfo", {
     params: {
       code,
@@ -20,7 +21,7 @@ export const getWxUserInfo = ({ code, state }) =>
   });
 
 // 使用微信信息对人人讲的注册及登录
-export const loginRRJ = ({ avatar, nickname, uuid, openid, app }, config) =>
+export const loginRRJ = ({avatar, nickname, uuid, openid, app}, config) =>
   http.post(
     "/api/v3/account/login_auth",
     {
@@ -34,11 +35,11 @@ export const loginRRJ = ({ avatar, nickname, uuid, openid, app }, config) =>
   );
 
 // 使用用户id获取人人讲用户信息
-export const getUserInfo = ({ userId }) =>
+export const getUserInfo = ({userId}) =>
   http.get(`/api/v3/users/${userId}/show`);
 
 // 获取动态
-export const getDynamicDetail = ({ exercise_id, label }) => {
+export const getDynamicDetail = ({exercise_id, label}) => {
   return http.get("/api/v3/dynamic/exercise/info", {
     params: {
       exercise_id,
@@ -50,7 +51,7 @@ export const getDynamicDetail = ({ exercise_id, label }) => {
 /*
  * K歌相关的接口
  * */
-export const getWorksById = ({ id }) => {
+export const getWorksById = ({id}) => {
   return http.get("api/drawing/findById", {
     params: {
       id,
@@ -60,3 +61,14 @@ export const getWorksById = ({ id }) => {
     },
   });
 };
+
+export const getFollowsRankList = ({drawId}) => {
+  return http.get("api/drawing/flowers", {
+    params: {
+      drawId
+    },
+    custom: {
+      baseURL: rrjConfig.apiBasePath2,
+    },
+  })
+}

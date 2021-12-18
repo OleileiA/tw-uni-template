@@ -69,7 +69,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import { getWorksById } from "../../api";
+import { getWorksById, getFollowsRankList } from "../../api";
 import puzzleRichText from "../../mixins/puzzleRichText";
 import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
@@ -113,7 +113,8 @@ export default {
     ...mapState(["userInfo"]),
   },
   async onLoad() {
-    await this.getWorksById();
+    this.getWorksById();
+    this.getFollowRankList();
   },
   methods: {
     async getWorksById(id = 268703) {
@@ -144,6 +145,10 @@ export default {
         // 最普通的模板
       }
     },
+    async getFollowRankList(id = 268703) {
+      const res = await getFollowsRankList({ drawId: id });
+      console.log('getFollowRankList', res);
+    }
   },
 };
 </script>
