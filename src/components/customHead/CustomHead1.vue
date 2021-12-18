@@ -11,7 +11,7 @@
       class="my-0 mx-auto w-18d75 h-7 text-white text-base leading-7 text-center bg-theme rounded-3d5xl"
       >关注</view
     >
-    <view class="mt-5 text-white text-2xl text-center font-black">{{
+    <view class="mt-5 text-white text-2xl text-center font-black" :style="{ color: titleColor }">{{
       title
     }}</view>
     <view class="flex-wrapper-center mt-1 text-white text-sm">
@@ -31,6 +31,8 @@ export default {
     createdAt: Number,
     readNum: Number,
     author: String,
+    titleColor: String,
+    subTitleColor: String,
   },
   methods: {
     clickFollow() {

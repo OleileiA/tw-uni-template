@@ -1,6 +1,6 @@
 <template>
   <view
-    class="relative flex-wrapper-between w-full h-18d75 p-2d5 bg-white bg-opacity-50 rounded-md box-border"
+    class="relative flex-wrapper-between w-full h-18d75 p-2d5 bg-white bg-opacity-20 rounded-md box-border"
   >
     <view class="relative flex-none w-13d75 h-13d75 rounded-sm overflow-hidden">
       <image :src="cover" class="w-full h-full"></image>

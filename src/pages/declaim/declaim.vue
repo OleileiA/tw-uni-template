@@ -25,6 +25,8 @@
             :created-at="music.createdAt"
             :read-num="visitNum"
             :author="music.singer"
+            :title-color="titleFontColor"
+            :sub-title-color="subtitleFontColor"
           ></custom-head-1>
         </view>
         <!--   音频播放器   -->
@@ -36,7 +38,7 @@
           ></audio-controller>
         </view>
         <!--  富文本   -->
-        <view>
+        <view :style="{ color: textFontColor, padding: padding }">
           <u-parse :content="content"></u-parse>
         </view>
         <comment-wrapper :comment-count="commentsNum">
@@ -77,6 +79,7 @@ import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import MescrollBody from "mescroll-uni/mescroll-body";
+import mainStyle from "../../mixins/mainStyle";
 
 export default {
   components: {
@@ -89,7 +92,7 @@ export default {
     uParse,
     MescrollBody,
   },
-  mixins: [puzzleRichText, MescrollMixin],
+  mixins: [puzzleRichText, MescrollMixin, mainStyle],
   data: function () {
     return {
       downOption: {
@@ -131,6 +134,10 @@ export default {
         this.music = music;
         this.visitNum = visitNum;
         this.content = this.puzzleContent(this.richTextObj.contents);
+        this.genMainStyle({
+          type: "declaim",
+          mainStyle: this.richTextObj.template.mainStyle,
+        });
         console.log("richTextObj richTextObj richTextObj", JSON.parse(content));
       } else {
         // 最普通的模板
