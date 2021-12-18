@@ -1,4 +1,3 @@
-
 // animates: (3) ["https://image.renrenjiang.cn/shiquyun/uploads/covers/b42fc4eb4309453b8c95f050ee5f58b4.jpg", "https://image.renrenjiang.cn/shiquyun/uploads/covers/3dab6f604c1a4ab1a8dbb4a3d08f4477.jpg", "https://image.renrenjiang.cn/shiquyun/uploads/covers/7580f2e40bae4fa0981325e0b5d130ec.jpg"]
 // backgroundColor: "#015C79"
 // communityBgColor: "#9EE5FF"
@@ -35,8 +34,7 @@ export default {
       if (type === "declaim") {
         if (mainStyle.templateType === 0) {
           // 没有特殊效果
-        }
-        else if (mainStyle.templateType === 1) {
+        } else if (mainStyle.templateType === 1) {
           // templateType1表示是带有背景，不用设置背景颜色，特殊效果为滑动毛玻璃
           this.templateId = mainStyle.templateId;
           this.templateType = mainStyle.templateType;

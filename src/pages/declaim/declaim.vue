@@ -5,8 +5,10 @@
     <view
       v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
-      :style="{ backgroundImage: 'url(' + richTextObj.background + ')',
-      backgroundColor: backgroundColor }"
+      :style="{
+        backgroundImage: 'url(' + richTextObj.background + ')',
+        backgroundColor: backgroundColor,
+      }"
     >
       <mescroll-body
         class="overflow-scroll"
@@ -44,11 +46,13 @@
         </view>
         <!--   用户信息    -->
         <view class="px-std">
-          <user-info-guide-bar :avatar="user.avatarUrl"
-                               :nickname="user.nickname"
-                               :fans="user.fansCount"
-                               :works="user.drawCount"
-                               :followed="user.followed"></user-info-guide-bar>
+          <user-info-guide-bar
+            :avatar="user.avatarUrl"
+            :nickname="user.nickname"
+            :fans="user.fansCount"
+            :works="user.drawCount"
+            :followed="user.followed"
+          ></user-info-guide-bar>
         </view>
         <!--   share     -->
         <view class="p-std">
@@ -60,9 +64,8 @@
             <timeline-share></timeline-share>
           </view>
         </view>
-        <comment-wrapper :comment-count="commentsNum">
+        <comment-wrapper :comment-count="commentsNum" main-color="#fff">
           <template slot="body">
-            <comment-entry :avatar="userInfo.avatar"></comment-entry>
             <comment-unit
               v-for="(item, index) in comments"
               :key="item.id"
@@ -74,11 +77,9 @@
               :create-time="item.createdAt"
               :update-time="item.updatedAt"
               :with-border-bottom="index !== comments.length - 1"
+              main-color="#fff"
+              sub-color="rgba(255, 255, 255, 0.7)"
             ></comment-unit>
-            <text-guide-bar
-              color="#F4350B"
-              text="下载拾趣云，查看更多评论"
-            ></text-guide-bar>
           </template>
         </comment-wrapper>
       </mescroll-body>
@@ -88,10 +89,8 @@
 <script>
 import { mapState } from "vuex";
 import { getWorksById, getFollowsRankList } from "../../api";
-import CommentEntry from "../../components/comment/CommentEntry";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
-import TextGuideBar from "../../components/guide/TextGuideBar";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
@@ -106,16 +105,14 @@ import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 export default {
   components: {
     CommentWrapper,
-    CommentEntry,
     CommentUnit,
-    TextGuideBar,
     AudioController,
     CustomHead1,
     uParse,
     MescrollBody,
     UserInfoGuideBar,
     WechatShare,
-    TimelineShare
+    TimelineShare,
   },
   mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin],
   data: function () {
@@ -171,8 +168,8 @@ export default {
     },
     async getFollowRankList(id = 268703) {
       const res = await getFollowsRankList({ drawId: id });
-      console.log('getFollowRankList', res);
-    }
+      console.log("getFollowRankList", res);
+    },
   },
 };
 </script>

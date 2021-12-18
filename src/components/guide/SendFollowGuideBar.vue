@@ -10,8 +10,6 @@ export default {
     avatars: Array,
     sendCount: Number,
   },
-  methods: {
-
-  }
-}
+  methods: {},
+};
 </script>
