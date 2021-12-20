@@ -14,9 +14,10 @@ const app = new Vue({
   ...App,
 });
 
+require("./config/request.js")(app);
 
 appInit().then((res) => {
-  require("./config/request.js")(app);
-  // 引入请求封装，将app参数传递到配置中
-  if (res) app.$mount();
+  if (res) {
+    app.$mount();
+  }
 });

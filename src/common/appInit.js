@@ -61,7 +61,7 @@ function _loginInfoDealer(userInfo) {
         state: "appwx",
         backUrl: removeExtraQuery(window.location.href),
       });
-    });
+    }, 2000);
     return 0;
   }
   return 1;

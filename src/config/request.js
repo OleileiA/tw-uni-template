@@ -6,12 +6,6 @@ module.exports = () => {
   // 基础信息
   let rrjUserInfo;
   let token;
-  try {
-    rrjUserInfo = JSON.parse(uni.getStorageSync("rrj_user_info"));
-    token = JSON.parse(uni.getStorageSync("rrj_user_token"));
-  } catch (e) {
-    console.error("用户信息解析失败");
-  }
 
   // 初始化请求配置,
   uni.$u.http.setConfig((config) => {
@@ -31,13 +25,31 @@ module.exports = () => {
       // 增加token
       if (token?.id) {
         config.header.Authorization = token.id;
+      } else {
+        try {
+          const tokenStr = uni.getStorageSync("rrj_user_token");
+          if (tokenStr) {
+            token = JSON.parse(tokenStr);
+            if (token?.id) config.header.Authorization = token.id;
+          }
+        } catch (e) {
+          console.error("token解析异常");
+        }
       }
 
       // 增加用户信息
       if (rrjUserInfo?.id) {
         config.params.u = rrjUserInfo.id;
       } else {
-        config.params.u = 0;
+        const rrjUserInfoStr = uni.getStorageSync("rrj_user_info");
+        if (rrjUserInfoStr) {
+          rrjUserInfo = JSON.parse(rrjUserInfoStr);
+          if (rrjUserInfo?.id) {
+            config.params.u = rrjUserInfo.id;
+          } else {
+            config.params.u = 0;
+          }
+        }
       }
 
       return config;
