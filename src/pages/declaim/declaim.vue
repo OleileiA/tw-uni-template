@@ -83,12 +83,20 @@
           </template>
         </comment-wrapper>
       </mescroll-body>
+
+      <!--   底部大按钮   -->
+      <view class="fixed l-0 b-0 w-full bottom-0">
+        <large-btn btn-text="我也要读"></large-btn>
+      </view>
     </view>
   </view>
 </template>
 <script>
 import { mapState } from "vuex";
 import { getWorksById, getFollowsRankList } from "../../api";
+import MainStyleMixin from "../../mixins/MainStyleMixin";
+import MescrollMixin from "mescroll-uni/mescroll-mixins";
+import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import AudioController from "../../components/audio/AudioController";
@@ -98,9 +106,7 @@ import MescrollBody from "mescroll-uni/mescroll-body";
 import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
 import WechatShare from "../../components/share/WechatShare";
 import TimelineShare from "../../components/share/TimelineShare";
-import MainStyleMixin from "../../mixins/MainStyleMixin";
-import MescrollMixin from "mescroll-uni/mescroll-mixins";
-import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
+import LargeBtn from '../../components/guide/LargeBtn';
 
 export default {
   components: {
@@ -113,6 +119,7 @@ export default {
     UserInfoGuideBar,
     WechatShare,
     TimelineShare,
+    LargeBtn
   },
   mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin],
   data: function () {

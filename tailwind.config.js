@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         theme: "#FF0000",
-        sharedark: "#1B1B1C",
+        dark: "#1B1B1C",
       },
       spacing: {
         "2d5": "20rpx",
@@ -34,6 +34,9 @@ module.exports = {
         "4xl": "64rpx",
         "5xl": "80rpx",
       },
+      lineHeight: {
+        11: "88rpx"
+      }
     },
   },
   variants: {
