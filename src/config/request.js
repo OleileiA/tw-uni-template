@@ -2,6 +2,17 @@ import rrjConfig from "./index.js";
 
 // 此vm参数为页面的实例，可以通过它引用vuex中的变量
 module.exports = () => {
+
+  // 基础信息
+  let rrjUserInfo;
+  let token;
+  try {
+    rrjUserInfo = JSON.parse(uni.getStorageSync("rrj_user_info"));
+    token = JSON.parse(uni.getStorageSync("rrj_user_token"));
+  } catch (e) {
+    console.error("用户信息解析失败");
+  }
+
   // 初始化请求配置,
   uni.$u.http.setConfig((config) => {
     config.baseURL = rrjConfig.apiBasePath;
@@ -11,9 +22,22 @@ module.exports = () => {
   // 请求拦截
   uni.$u.http.interceptors.request.use(
     (config) => {
+
       // 为一些特殊的请求改变基础域名
       if (config?.custom?.baseURL) {
         config.baseURL = config.custom.baseURL;
+      }
+
+      // 增加token
+      if (token?.id) {
+        config.header.Authorization = token.id;
+      }
+
+      // 增加用户信息
+      if (rrjUserInfo?.id) {
+        config.params.u = rrjUserInfo.id;
+      } else {
+        config.params.u = 0;
       }
 
       return config;

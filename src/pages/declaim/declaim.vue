@@ -82,6 +82,7 @@
             ></comment-unit>
           </template>
         </comment-wrapper>
+
       </mescroll-body>
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
@@ -96,7 +97,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import { getWorksById, getFollowsRankList } from "../../api";
+import { getWorksById, getFollowsRankList, getMoreContent } from "../../api";
 import MainStyleMixin from "../../mixins/MainStyleMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
@@ -146,8 +147,9 @@ export default {
     ...mapState(["userInfo"]),
   },
   async onLoad() {
-    this.getWorksById();
     this.getFollowRankList();
+    await this.getWorksById();
+    await this.getMoreContent();
   },
   methods: {
     async getWorksById(id = 268703) {
@@ -182,6 +184,14 @@ export default {
       const res = await getFollowsRankList({ drawId: id });
       console.log("getFollowRankList", res);
     },
+    async getMoreContent() {
+      const res = await getMoreContent({
+        userId: this.user.id,
+        rows: 6,
+        type: 5
+      });
+      console.log('getMotre content', res);
+    }
   },
 };
 </script>

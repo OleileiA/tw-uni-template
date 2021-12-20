@@ -51,6 +51,8 @@ export const getDynamicDetail = ({ exercise_id, label }) => {
 /*
  * K歌相关的接口
  * */
+
+// 根据id获取作品
 export const getWorksById = ({ id }) => {
   return http.get("api/drawing/findById", {
     params: {
@@ -62,6 +64,7 @@ export const getWorksById = ({ id }) => {
   });
 };
 
+// 获取鲜花排名
 export const getFollowsRankList = ({ drawId }) => {
   return http.get("api/drawing/flowers", {
     params: {
@@ -72,3 +75,22 @@ export const getFollowsRankList = ({ drawId }) => {
     },
   });
 };
+
+// 获取朗诵或者K歌的更多内容
+// userId: 不传就推荐其他人内容
+// type: 4歌曲，5朗诵
+export const getMoreContent = ({ userId, rows, type }) => {
+  const param = {
+    rows
+  }
+  if (userId) param.userId = userId;
+  if (type) param.type = type;
+  return http.get("api/v2/drawing/findRecommend", {
+    params: {
+      ...param
+    },
+    custom: {
+      baseURL: rrjConfig.apiBasePath2,
+    },
+  });
+}
