@@ -83,7 +83,10 @@
           </template>
         </comment-wrapper>
       </mescroll-body>
-
+      <!--   右侧操作栏   -->
+      <view class="fixed w-13 right-std bottom-40">
+        <column-options></column-options>
+      </view>
       <!--   底部大按钮   -->
       <view class="fixed l-0 b-0 w-full bottom-0">
         <large-btn btn-text="我也要读"></large-btn>
@@ -107,6 +110,7 @@ import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
 import WechatShare from "../../components/share/WechatShare";
 import TimelineShare from "../../components/share/TimelineShare";
 import LargeBtn from '../../components/guide/LargeBtn';
+import ColumnOptions from '../../components/guide/ColumnOptions';
 
 export default {
   components: {
@@ -119,7 +123,8 @@ export default {
     UserInfoGuideBar,
     WechatShare,
     TimelineShare,
-    LargeBtn
+    LargeBtn,
+    ColumnOptions
   },
   mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin],
   data: function () {
