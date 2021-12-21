@@ -42,7 +42,7 @@ export default {
     ContentCard,
   },
   props: {
-    moreContent: [],
+    moreContent: Array,
   },
 };
 </script>
