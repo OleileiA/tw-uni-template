@@ -8,16 +8,14 @@
       :style="{
         backgroundImage: 'url(' + richTextObj.background + ')',
         backgroundColor: backgroundColor,
-      }"
-    >
+      }">
       <mescroll-body
         class="overflow-scroll"
         ref="mescrollRef"
         @init="mescrollInit"
         @down="downCallback"
         @up="upCallback"
-        :down="downOption"
-      >
+        :down="downOption">
         <!--   自定义头部   -->
         <view class="pt-8d75 pb-std">
           <custom-head-1
@@ -30,6 +28,7 @@
             :author="music.singer"
             :title-color="titleFontColor"
             :sub-title-color="subtitleFontColor"
+            @clickFollow="clickFollow(user.rrjUserId, user.followed)"
           ></custom-head-1>
         </view>
         <!--   音频播放器   -->
@@ -52,6 +51,7 @@
             :fans="user.fansCount"
             :works="user.drawCount"
             :followed="user.followed"
+            @clickFollow="clickFollow(user.rrjUserId, user.followed)"
           ></user-info-guide-bar>
         </view>
         <!--   share     -->
@@ -103,6 +103,7 @@ import { getWorksById, getFollowsRankList, getMoreContent } from "../../api";
 import MainStyleMixin from "../../mixins/MainStyleMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
+import FollowMixin from '../../mixins/FollowMixin';
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import AudioController from "../../components/audio/AudioController";
@@ -131,13 +132,12 @@ export default {
     ColumnOptions,
     MoreContent,
   },
-  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin],
+  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin],
   data: function () {
     return {
       downOption: {
         use: false, // 禁止下拉
       },
-
       richTextObj: null,
       comments: [],
       commentsNum: 0,
@@ -180,7 +180,6 @@ export default {
           type: "declaim",
           mainStyle: this.richTextObj.template.mainStyle,
         });
-        console.log("richTextObj richTextObj richTextObj", JSON.parse(content));
       } else {
         // 最普通的模板
       }

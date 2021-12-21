@@ -49,8 +49,8 @@ export const getDynamicDetail = ({ exercise_id, label }) => {
 };
 
 /*
- * K歌相关的接口
- * */
+ * ---------------------------------------- K歌相关的接口 ------------------------------------------------
+ */
 
 // 根据id获取作品
 export const getWorksById = ({ id }) => {
@@ -94,3 +94,33 @@ export const getMoreContent = ({ userId, rows, type }) => {
     },
   });
 };
+
+// 关注
+export const sqyFollow = ({ userId }) => {
+  return http.post(
+      "api/follow/followUser",
+      {
+        rrjUserId: userId
+      },
+      {
+        custom: {
+          baseURL: rrjConfig.apiBasePath2,
+        },
+      }
+  )
+}
+
+// 取关
+export const sqyUnfollow = ({ userId }) => {
+  return http.post(
+      "api/follow/cancelFollowUser",
+      {
+        rrjUserId: userId
+      },
+      {
+        custom: {
+          baseURL: rrjConfig.apiBasePath2,
+        },
+      }
+  )
+}
