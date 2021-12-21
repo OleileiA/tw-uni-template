@@ -3,10 +3,14 @@ import {getUrlParams} from '../common/util';
 export default {
   data() {
     return {
-      id: 0
+      id: 0,
+      showShareGuide: false
     }
   },
   methods: {
+    toggleShareGuide() {
+      this.showShareGuide = !this.showShareGuide;
+    },
     getQueryParameter({ idKey }) {
       const obj = getUrlParams(window.location.href);
       this.id = obj[idKey];

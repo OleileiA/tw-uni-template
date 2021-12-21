@@ -24,6 +24,7 @@
       <view class="relative top-m1">点赞</view>
     </view>
     <view
+        @click="clickShare"
       class="flex-none w-13 h-13 py-1 flex-wrapper-between flex-col bg-white rounded-full box-border"
     >
       <u-icon name="share" size="30" color="#1B1B1C"></u-icon>
@@ -38,5 +39,10 @@ export default {
   components: {
     uIcon,
   },
+  methods: {
+    clickShare() {
+      this.$emit("clickShare");
+    }
+  }
 };
 </script>

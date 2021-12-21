@@ -2,8 +2,7 @@
   <!-- 固定容器 -->
   <view class="fixed w-screen h-screen top-0 left-0">
     <!-- 背景  -->
-    <view
-      v-if="richTextObj"
+    <view v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{
         backgroundImage: 'url(' + richTextObj.background + ')',
@@ -97,13 +96,17 @@
       </mescroll-body>
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
-        <column-options></column-options>
+        <column-options @clickShare="toggleShareGuide"></column-options>
       </view>
       <!--   底部大按钮   -->
       <view class="fixed l-0 b-0 w-full bottom-0">
         <large-btn btn-text="我也要读"></large-btn>
       </view>
     </view>
+    <!--  分享引导  -->
+    <share-guide :show="showShareGuide"
+                 @click.native="toggleShareGuide">
+    </share-guide>
   </view>
 </template>
 <script>
@@ -113,6 +116,8 @@ import MainStyleMixin from "../../mixins/MainStyleMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 import FollowMixin from '../../mixins/FollowMixin';
+import ShareMixin from '../../mixins/ShareMixin';
+
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
 import AudioController from "../../components/audio/AudioController";
@@ -126,10 +131,11 @@ import LargeBtn from "../../components/guide/LargeBtn";
 import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
-import ShareMixin from '../../mixins/ShareMixin';
+import ShareGuide from '../../components/share/ShareGuide';
 
 export default {
   components: {
+    ShareGuide,
     SendFollowGuideBar,
     CommentWrapper,
     CommentUnit,
@@ -142,7 +148,7 @@ export default {
     TimelineShare,
     LargeBtn,
     ColumnOptions,
-    MoreContent,
+    MoreContent
   },
   mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin, ShareMixin],
   data: function () {
