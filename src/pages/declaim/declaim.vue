@@ -21,14 +21,14 @@
           <custom-head-1
             :avatar="user.avatarUrl"
             :nickname="user.nickname"
-            :followed="user.followed"
+            :followed="followed || false"
             :title="music.title"
             :created-at="music.createdAt"
             :read-num="visitNum"
             :author="music.singer"
             :title-color="titleFontColor"
             :sub-title-color="subtitleFontColor"
-            @clickFollow="clickFollow(user.rrjUserId, user.followed)"
+            @clickFollow="clickFollow(user.rrjUserId, followed)"
           ></custom-head-1>
         </view>
         <!--   音频播放器   -->
@@ -50,8 +50,8 @@
             :nickname="user.nickname"
             :fans="user.fansCount"
             :works="user.drawCount"
-            :followed="user.followed"
-            @clickFollow="clickFollow(user.rrjUserId, user.followed)"
+            :followed="followed || false"
+            @clickFollow="clickFollow(user.rrjUserId, followed)"
           ></user-info-guide-bar>
         </view>
         <!--   share     -->
@@ -180,6 +180,7 @@ export default {
           type: "declaim",
           mainStyle: this.richTextObj.template.mainStyle,
         });
+        this.updateFollowed(user.followed);
       } else {
         // 最普通的模板
       }

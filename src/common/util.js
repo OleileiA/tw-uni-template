@@ -33,11 +33,7 @@ export async function RRJLogin(wxUserInfo) {
     app: wxUserInfo.app,
   };
   window.localStorage.setItem("rrj_wxuser_info", JSON.stringify(wxUserInfo));
-  return await loginRRJ(data, {
-    header: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-  });
+  return await loginRRJ(data);
 }
 
 // 根据秒数计算标准时间格式

@@ -21,7 +21,7 @@ export const getWxUserInfo = ({ code, state }) =>
   });
 
 // 使用微信信息对人人讲的注册及登录
-export const loginRRJ = ({ avatar, nickname, uuid, openid, app }, config) =>
+export const loginRRJ = ({ avatar, nickname, uuid, openid, app }) =>
   http.post(
     "/api/v3/account/login_auth",
     {
@@ -30,8 +30,7 @@ export const loginRRJ = ({ avatar, nickname, uuid, openid, app }, config) =>
       uuid,
       openid,
       app,
-    },
-    config
+    }
   );
 
 // 使用用户id获取人人讲用户信息
