@@ -27,9 +27,13 @@ export default {
       }
     },
     async follow(userId) {
-      console.log('userId', userId);
       const res = await sqyFollow({ userId });
-      console.log('follow follow follow', res);
+      if (res.code === 200) {
+        uni.showToast({
+          title: '关注成功'
+        })
+        this.updateFollowed(true);
+      }
     },
     async unFollow(userId) {
       const res = await sqyUnfollow({ userId });
