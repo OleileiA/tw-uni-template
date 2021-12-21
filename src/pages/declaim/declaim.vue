@@ -99,7 +99,7 @@
         <column-options @clickShare="toggleShareGuide"></column-options>
       </view>
       <!--   底部大按钮   -->
-      <view class="fixed l-0 b-0 w-full bottom-0">
+      <view class="fixed l-0 b-0 w-full bottom-0" @click="openApp">
         <large-btn btn-text="我也要读"></large-btn>
       </view>
     </view>
@@ -132,6 +132,7 @@ import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
 import ShareGuide from '../../components/share/ShareGuide';
+import OpenAppMixin from '../../mixins/OpenAppMixin';
 
 export default {
   components: {
@@ -150,7 +151,7 @@ export default {
     ColumnOptions,
     MoreContent
   },
-  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin, ShareMixin],
+  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin, ShareMixin, OpenAppMixin],
   data: function () {
     return {
       downOption: {

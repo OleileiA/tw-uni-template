@@ -45,3 +45,17 @@ export function secFormatTime(num) {
   let secStr = sec > 9 ? String(sec) : "0" + sec;
   return `${minStr}:${secStr}`;
 }
+
+// 判断安卓还是ios
+export function isAndroidOrIOS() {
+  let u = navigator.userAgent;
+  let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+  let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+  if (isAndroid) {
+    return "android"
+  }
+  if (isiOS) {
+    return "ios"
+  }
+  return false
+}
