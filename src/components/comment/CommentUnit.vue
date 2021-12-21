@@ -1,5 +1,8 @@
 <template>
-  <view class="relative flex-wrapper-between items-start" :style="{ color: mainColor }">
+  <view
+    class="relative flex-wrapper-between items-start"
+    :style="{ color: mainColor }"
+  >
     <slot name="unit-slot"></slot>
     <!--  左半区  -->
     <view class="relative flex-none w-8d5 h-full py-3 box-border">
@@ -18,7 +21,9 @@
       <view class="text-base" :style="{ color: subColor }">{{ nickname }}</view>
       <view class="py-3 text-base">{{ content }}</view>
       <view class="flex-wrapper-between">
-        <view class="flex-1 text-sm" :style="{ color: subColor }">{{ fromNow }}</view>
+        <view class="flex-1 text-sm" :style="{ color: subColor }">{{
+          fromNow
+        }}</view>
         <view class="w-1s2 flex-none flex-wrapper-between">
           <view class="flex-wrapper-between text-base">
             <u-icon name="more-circle" :color="mainColor" size="23"></u-icon>

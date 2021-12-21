@@ -4,7 +4,7 @@
       <slot name="cover"></slot>
       <image :src="cover" class="w-full h-full"></image>
     </view>
-    <view class="pt-2 text-dark text-base line1-overflow">{{title}}</view>
+    <view class="pt-2 text-dark text-base line1-overflow">{{ title }}</view>
     <slot name="card-bottom"></slot>
   </view>
 </template>
@@ -13,8 +13,8 @@ export default {
   props: {
     cover: String,
     title: String,
-  }
-}
+  },
+};
 </script>
 <style>
 .card {

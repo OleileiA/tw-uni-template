@@ -81,16 +81,16 @@ export const getFollowsRankList = ({ drawId }) => {
 // type: 4歌曲，5朗诵
 export const getMoreContent = ({ userId, rows, type }) => {
   const param = {
-    rows
-  }
+    rows,
+  };
   if (userId) param.userId = userId;
   if (type) param.type = type;
   return http.get("api/v2/drawing/findRecommend", {
     params: {
-      ...param
+      ...param,
     },
     custom: {
       baseURL: rrjConfig.apiBasePath2,
     },
   });
-}
+};

@@ -12,7 +12,7 @@ module.exports = {
         dark: "#1B1B1C",
       },
       spacing: {
-        "m1": "-8rpx",
+        m1: "-8rpx",
         "2d5": "20rpx",
         std: "30rpx",
         "4d5": "36rpx",
@@ -22,13 +22,13 @@ module.exports = {
         "8d75": "70rpx",
         "10d5": "84rpx",
         "11d25": "90rpx",
-        "13": "104rpx",
+        13: "104rpx",
         "13d75": "110rpx",
-        "15": "120rpx",
+        15: "120rpx",
         "16d25": "130rpx",
         "18d75": "150rpx",
         "35d5": "284rpx",
-        "65": "520rpx"
+        65: "520rpx",
       },
       fontSize: {
         "3d5": "28rpx",
@@ -41,8 +41,8 @@ module.exports = {
         "5xl": "80rpx",
       },
       lineHeight: {
-        11: "88rpx"
-      }
+        11: "88rpx",
+      },
     },
   },
   variants: {

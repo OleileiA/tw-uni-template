@@ -2,7 +2,6 @@ import rrjConfig from "./index.js";
 
 // 此vm参数为页面的实例，可以通过它引用vuex中的变量
 module.exports = () => {
-
   // 基础信息
   let rrjUserInfo;
   let token;
@@ -16,7 +15,6 @@ module.exports = () => {
   // 请求拦截
   uni.$u.http.interceptors.request.use(
     (config) => {
-
       // 为一些特殊的请求改变基础域名
       if (config?.custom?.baseURL) {
         config.baseURL = config.custom.baseURL;
