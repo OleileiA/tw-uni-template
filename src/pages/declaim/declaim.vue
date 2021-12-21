@@ -68,7 +68,7 @@
         <comment-wrapper :comment-count="commentsNum" main-color="#fff">
           <template slot="body">
             <comment-unit
-              v-for="(item, index) in comments"
+              v-for="(item) in comments"
               :key="item.id"
               :id="item.id"
               :user-id="item.rrjUserId"
@@ -77,7 +77,7 @@
               :content="item.comment"
               :create-time="item.createdAt"
               :update-time="item.updatedAt"
-              :with-border-bottom="index !== comments.length - 1"
+              :with-border-bottom="false"
               main-color="#fff"
               sub-color="rgba(255, 255, 255, 0.7)"
             ></comment-unit>
