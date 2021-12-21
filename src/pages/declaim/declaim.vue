@@ -212,7 +212,6 @@ export default {
     },
     async getFollowRankList(id = 268703) {
       const res = await getFollowsRankList({ drawId: id });
-      console.log("getFollowRankList", res);
       if (res?.length) {
         this.sendFlowerUsers = res;
       }
