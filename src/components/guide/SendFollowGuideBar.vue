@@ -11,7 +11,7 @@
       <view class="flex-auto text-golden text-sm">已有{{flowerNum}}人赠送鲜花</view>
     </view>
     <view class="btn-border flex-none flex-wrapper-center w-30 h-10 text-base rounded-4xl box-border">
-      <image class="flex-none w-5 h-5" src="../../static/images/gift.png"></image>
+      <image class="flex-none w-5 h-5" src="../../static/images/flower.png"></image>
       <view class="pl-2 text-golden">我要送花</view>
     </view>
   </view>
