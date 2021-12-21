@@ -15,6 +15,13 @@
         @down="downCallback"
         @up="upCallback"
         :down="downOption">
+        <!--   下载引导   -->
+        <view class="sticky top-0 left-0 w-full h-15d5 z-10">
+          <down-load-guide
+              @clickOpenNow="openApp"
+              :avatar="user.avatarUrl"
+              :nickname="user.nickname"></down-load-guide>
+        </view>
         <!--   自定义头部   -->
         <view class="pt-8d75 pb-std">
           <custom-head-1
@@ -139,9 +146,11 @@ import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
 import ShareGuide from '../../components/share/ShareGuide';
+import DownLoadGuide from '../../components/guide/DownLoadGuide';
 
 export default {
   components: {
+    DownLoadGuide,
     ShareGuide,
     SendFollowGuideBar,
     CommentWrapper,
