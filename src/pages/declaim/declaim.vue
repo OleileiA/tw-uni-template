@@ -126,6 +126,7 @@ import LargeBtn from "../../components/guide/LargeBtn";
 import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
+import ShareMixin from '../../mixins/ShareMixin';
 
 export default {
   components: {
@@ -143,7 +144,7 @@ export default {
     ColumnOptions,
     MoreContent,
   },
-  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin],
+  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin, ShareMixin],
   data: function () {
     return {
       downOption: {
@@ -165,9 +166,18 @@ export default {
     ...mapState(["userInfo"]),
   },
   async onLoad() {
-    this.getFollowRankList();
-    await this.getWorksById();
+    this.getQueryParameter({
+      idKey: "declaimId"
+    });
+    this.getFollowRankList(this.id);
+    await this.getWorksById(this.id);
     await this.getMoreContent();
+    this.initWxShare({
+      title: this.music.title,
+      link: window.location.href,
+      imgUrl: this.music.cover,
+      desc: "一起来朗诵吧！"
+    })
   },
   methods: {
     async getWorksById(id = 268703) {

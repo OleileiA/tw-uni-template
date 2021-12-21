@@ -9,7 +9,7 @@ export async function appInit() {
   const routeInfo = getUrlParams(hostUrl);
 
   // 签名处理
-  await wxSignature(hostUrl);
+  wxSignature(hostUrl);
 
   if (routeInfo.from === "app") {
     // app处理
