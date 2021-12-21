@@ -87,6 +87,8 @@
               :with-border-bottom="false"
               main-color="#fff"
               sub-color="rgba(255, 255, 255, 0.7)"
+              @clickCommentPraise="openApp"
+              @clickCommentReply="openApp"
             ></comment-unit>
           </template>
         </comment-wrapper>
@@ -96,7 +98,11 @@
       </mescroll-body>
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
-        <column-options @clickShare="toggleShareGuide"></column-options>
+        <column-options
+            @clickGift="openApp"
+            @clickComment="openApp"
+            @clickPraise="openApp"
+            @clickShare="toggleShareGuide"></column-options>
       </view>
       <!--   底部大按钮   -->
       <view class="fixed l-0 b-0 w-full bottom-0" @click="openApp">
@@ -117,6 +123,7 @@ import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 import FollowMixin from '../../mixins/FollowMixin';
 import ShareMixin from '../../mixins/ShareMixin';
+import OpenAppMixin from '../../mixins/OpenAppMixin';
 
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
@@ -132,7 +139,6 @@ import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
 import ShareGuide from '../../components/share/ShareGuide';
-import OpenAppMixin from '../../mixins/OpenAppMixin';
 
 export default {
   components: {
@@ -151,7 +157,8 @@ export default {
     ColumnOptions,
     MoreContent
   },
-  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin, FollowMixin, ShareMixin, OpenAppMixin],
+  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin,
+    FollowMixin, ShareMixin, OpenAppMixin],
   data: function () {
     return {
       downOption: {

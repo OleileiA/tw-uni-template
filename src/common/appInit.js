@@ -33,6 +33,7 @@ async function wxSignature(hostUrl) {
     nonceStr: res.nonceStr,
     signature: res.signature,
     jsApiList: ["updateAppMessageShareData", "updateTimelineShareData"],
+    openTagList: ["wx-open-launch-app"]
   });
 }
 

@@ -25,11 +25,11 @@
           fromNow
         }}</view>
         <view class="w-1s2 flex-none flex-wrapper-between">
-          <view class="flex-wrapper-between text-base">
+          <view class="flex-wrapper-between text-base" @click="clickCommentReply">
             <u-icon name="more-circle" :color="mainColor" size="23"></u-icon>
             <text>回复</text>
           </view>
-          <view class="flex-wrapper-between text-base">
+          <view class="flex-wrapper-between text-base" @click="clickCommentPraise">
             <u-icon name="thumb-up" :color="mainColor" size="23"></u-icon>
             <text>赞</text>
           </view>
@@ -64,6 +64,14 @@ export default {
       return uni.$u.timeFrom(this.updateTime);
     },
   },
+  methods: {
+    clickCommentReply() {
+      this.$emit("clickCommentReply");
+    },
+    clickCommentPraise() {
+      this.$emit("clickCommentPraise");
+    }
+  }
 };
 </script>
 <style>
