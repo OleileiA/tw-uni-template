@@ -43,6 +43,14 @@
         <view :style="{ color: textFontColor, padding: padding }">
           <u-parse :content="content"></u-parse>
         </view>
+        <!--   鲜花    -->
+        <view class="px-std mb-std">
+          <send-follow-guide-bar
+              v-if="sendFlowerUsers && sendFlowerUsers.length"
+              :flower-sender="sendFlowerUsers"
+              :flower-num="flowerNum">
+          </send-follow-guide-bar>
+        </view>
         <!--   用户信息    -->
         <view class="px-std">
           <user-info-guide-bar
@@ -84,7 +92,8 @@
           </template>
         </comment-wrapper>
         <!--  更多内容     -->
-        <more-content :more-content="moreContent"></more-content>
+        <more-content v-if="moreContent && moreContent.length"
+                      :more-content="moreContent"></more-content>
       </mescroll-body>
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
@@ -116,9 +125,11 @@ import TimelineShare from "../../components/share/TimelineShare";
 import LargeBtn from "../../components/guide/LargeBtn";
 import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
+import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
 
 export default {
   components: {
+    SendFollowGuideBar,
     CommentWrapper,
     CommentUnit,
     AudioController,
@@ -146,6 +157,8 @@ export default {
       visitNum: 0,
       content: "",
       moreContent: [],
+      flowerNum: 0,
+      sendFlowerUsers: []
     };
   },
   computed: {
@@ -166,6 +179,7 @@ export default {
         user,
         music,
         visitNum,
+        flowerNum,
       } = await getWorksById({ id });
       if (template) {
         // 带有template表示带有模板
@@ -175,6 +189,7 @@ export default {
         this.user = user;
         this.music = music;
         this.visitNum = visitNum;
+        this.flowerNum = flowerNum;
         this.content = this.puzzleContent(this.richTextObj.contents);
         this.genMainStyle({
           type: "declaim",
@@ -188,6 +203,9 @@ export default {
     async getFollowRankList(id = 268703) {
       const res = await getFollowsRankList({ drawId: id });
       console.log("getFollowRankList", res);
+      if (res?.length) {
+        this.sendFlowerUsers = res;
+      }
     },
     async getMoreContent() {
       const res = await getMoreContent({

@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         theme: "#FF0000",
         dark: "#1B1B1C",
+        "golden": "#FFCF57"
       },
       spacing: {
         m1: "-8rpx",
@@ -27,6 +28,7 @@ module.exports = {
         15: "120rpx",
         "16d25": "130rpx",
         "18d75": "150rpx",
+        "30": "240rpx",
         "35d5": "284rpx",
         65: "520rpx",
       },

@@ -15,7 +15,7 @@ module.exports = () => {
   // 请求拦截
   uni.$u.http.interceptors.request.use(
     (config) => {
-      console.log('config', config);
+
       // 为一些特殊的请求改变基础域名
       if (config?.custom?.baseURL) {
         config.baseURL = config.custom.baseURL;
