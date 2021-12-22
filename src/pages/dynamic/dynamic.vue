@@ -24,9 +24,10 @@
           ></down-load-guide>
         </view>
         <!--   head     -->
-        <view v-if="customHead === 0"
-              class="p-std text-themeDark text-5 font-semibold line2-overflow">
-          {{exercise.title}}
+        <view
+          v-if="customHead === 0"
+          class="p-std pb-0 text-themeDark text-5 font-semibold line2-overflow break-all">
+          {{ exercise.title }}
         </view>
         <!--   用户信息    -->
         <view>
@@ -47,6 +48,24 @@
         <view class="px-std box-border">
           <u-parse :content="content"></u-parse>
         </view>
+        <!--   评论     -->
+        <view></view>
+        <!--   用户信息    -->
+        <view>
+          <user-info-guide-bar
+              :avatar="exercise.avatar"
+              :nickname="exercise.nickname"
+              :followed="followed || false"
+              @clickFollow="clickFollow(exercise.user_id, followed)"
+          >
+            <template slot="info-bottom">
+              <view class="text-gray-400 text-sm">{{
+                  exercise.updated_at | date("yyyy-mm-dd")
+                }}</view>
+            </template>
+          </user-info-guide-bar>
+        </view>
+        <!--   更多信息    -->
       </mescroll-body>
     </view>
   </view>
@@ -76,7 +95,6 @@ export default {
       downOption: {
         use: false, // 禁止下拉
       },
-      head: "",
       content: "",
       exercise: {},
       customHead: 0,
@@ -95,19 +113,26 @@ export default {
         this.exercise = data;
         const parsedContent = JSON.parse(data.content);
         console.log("parsed", parsedContent);
-        this.head = parsedContent?.template?.head?.content;
         this.content = this.puzzleContent(
           parsedContent?.contents,
           parsedContent?.layout
         );
 
-        // 头部处理
-        if (parsedContent?.template?.head?.customHead > 0) {
-          // 自定义头部
-        } else {
-          // 默认头部
+        // 判断是否有主题
+        if (parsedContent?.template?.mainStyle?.templateType === 0) {
+          // 无主题
           this.customHead = 0;
+        } else {
+          // 主题处理
+          // 头部处理
+          if (parsedContent?.template?.head?.customHead > 0) {
+            // 自定义头部
+          } else {
+            // 默认头部
+            this.customHead = 0;
+          }
         }
+
       }
     },
   },
