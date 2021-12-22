@@ -1,5 +1,5 @@
 <template>
-  <view class="wrapper" :style="mainStyle">
+  <view class="wrapper">
     <view>
       <u-parse :content="head"></u-parse>
     </view>
@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     async getDynamicDetail(exercise_id = 7334, label) {
-      const { result, data } = await getDynamicDetail({ exercise_id, label });
-      if (result === "ok") {
+      const data = await getDynamicDetail({ exercise_id, label });
+      if (data?.id) {
         const parsedContent = JSON.parse(data.content);
         console.log("parsed", parsedContent);
         this.head = parsedContent?.template?.head?.content;

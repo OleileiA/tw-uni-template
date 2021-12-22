@@ -230,6 +230,7 @@ export default {
       if (template) {
         // 带有template表示带有模板
         this.richTextObj = JSON.parse(content);
+        console.log('this.richTextObj', this.richTextObj);
         this.comments = comments;
         this.commentsNum = commentsNum;
         this.user = user;
