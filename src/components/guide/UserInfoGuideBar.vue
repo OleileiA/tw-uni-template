@@ -9,11 +9,8 @@
       <image class="w-11d25 h-11d25" :src="avatar"></image>
     </view>
     <view class="flex-auto w-0 pl-std line1-overflow">
-      <view class="text-white text-lg font-semibold">{{ nickname }}</view>
-      <view class="text-gray-200 text-sm">
-        <text>粉丝 {{ fans }}</text>
-        <text class="pl-5">作品 {{ works }}</text>
-      </view>
+      <view class="text-white text-lg font-semibold" :style="{ color: nicknameColor }">{{ nickname }}</view>
+      <slot name="info-bottom"></slot>
     </view>
     <view class="flex-none">
       <view
@@ -36,6 +33,10 @@ export default {
   props: {
     avatar: String,
     nickname: String,
+    nicknameColor: {
+      type: String,
+      default: '#202020'
+    },
     fans: Number,
     works: Number,
     followed: Boolean,

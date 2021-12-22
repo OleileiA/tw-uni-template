@@ -6,7 +6,7 @@
       v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{
-        backgroundImage: 'url(' + richTextObj.background + ')',
+        backgroundImage: 'url(' + backgroundImg + ')',
         backgroundColor: backgroundColor,
       }"
     >
@@ -69,11 +69,17 @@
           <user-info-guide-bar
             :avatar="user.avatarUrl"
             :nickname="user.nickname"
-            :fans="user.fansCount"
-            :works="user.drawCount"
             :followed="followed || false"
+            nickname-color="#fff"
             @clickFollow="clickFollow(user.rrjUserId, followed)"
-          ></user-info-guide-bar>
+          >
+            <template slot="info-bottom">
+              <view class="text-gray-200 text-sm">
+                <text>粉丝 {{ user.fansCount }}</text>
+                <text class="pl-5">作品 {{ user.drawCount }}</text>
+              </view>
+            </template>
+          </user-info-guide-bar>
         </view>
         <!--   share     -->
         <view class="p-std">

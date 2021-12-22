@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         theme: "#FF0000",
         dark: "#1B1B1C",
+        themeDark: "#202020",
         golden: "#FFCF57",
         layout: "rgba(0, 0, 0, 0.8)",
       },

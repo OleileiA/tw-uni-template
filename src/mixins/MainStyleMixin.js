@@ -21,6 +21,7 @@ export default {
       templateType: 0,
       titleFontColor: "#fff",
       subtitleFontColor: "#fff",
+      backgroundImg: '',
       backgroundColor: "transparent",
       textFontColor: "#fff",
       padding: "15px",
@@ -42,6 +43,7 @@ export default {
           this.subtitleFontColor = mainStyle.subtitleFontColor;
           this.textFontColor = mainStyle.textFontColor;
           this.padding = mainStyle.padding + "px";
+          this.backgroundImg = mainStyle.background;
         }
       }
     },
