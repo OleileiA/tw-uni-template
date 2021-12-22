@@ -13,6 +13,7 @@
           class="inset-0 m-auto"
           :cover="in_item.background"
           :title="in_item.music.title"
+          @click.native="clickContentCard(in_item)"
         >
           <template slot="card-bottom">
             <view class="flex-wrapper-between justify-start">
@@ -34,6 +35,7 @@
 import ContentCard from "./ContentCard";
 import uRow from "uview-ui/components/u-row/u-row";
 import uCol from "uview-ui/components/u-col/u-col";
+import { getUrlParams, puzzleQueryStr } from "../../common/util";
 
 export default {
   components: {
@@ -43,6 +45,16 @@ export default {
   },
   props: {
     moreContent: Array,
+  },
+  methods: {
+    clickContentCard(item) {
+      const url = window.location.href;
+      const queryObj = getUrlParams(url);
+      queryObj.declaimId = item.id;
+      uni.navigateTo({
+        url: `/pages/declaim/declaim?${puzzleQueryStr(queryObj)}`,
+      });
+    },
   },
 };
 </script>

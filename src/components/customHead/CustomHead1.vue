@@ -10,12 +10,14 @@
       v-if="followed"
       @click="clickFollow"
       class="my-0 mx-auto w-18d75 h-7 text-gray-400 text-base leading-7 text-center bg-gray-100 rounded-3d5xl"
-      >已关注</view>
+      >已关注</view
+    >
     <view
-        v-else
-        @click="clickFollow"
-        class="my-0 mx-auto w-18d75 h-7 text-white text-base leading-7 text-center bg-theme rounded-3d5xl"
-    >关注</view>
+      v-else
+      @click="clickFollow"
+      class="my-0 mx-auto w-18d75 h-7 text-white text-base leading-7 text-center bg-theme rounded-3d5xl"
+      >关注</view
+    >
     <view
       class="mt-5 text-white text-2xl text-center font-black"
       :style="{ color: titleColor }"

@@ -10,8 +10,8 @@ module.exports = {
       colors: {
         theme: "#FF0000",
         dark: "#1B1B1C",
-        "golden": "#FFCF57",
-        layout: "rgba(0, 0, 0, 0.8)"
+        golden: "#FFCF57",
+        layout: "rgba(0, 0, 0, 0.8)",
       },
       spacing: {
         m1: "-8rpx",
@@ -31,7 +31,7 @@ module.exports = {
         "16d25": "130rpx",
         "18d75": "150rpx",
         "21d5": "172rpx",
-        "30": "240rpx",
+        30: "240rpx",
         "35d5": "284rpx",
         65: "520rpx",
       },

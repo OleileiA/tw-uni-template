@@ -22,16 +22,13 @@ export const getWxUserInfo = ({ code, state }) =>
 
 // 使用微信信息对人人讲的注册及登录
 export const loginRRJ = ({ avatar, nickname, uuid, openid, app }) =>
-  http.post(
-    "/api/v3/account/login_auth",
-    {
-      avatar,
-      nickname,
-      uuid,
-      openid,
-      app,
-    }
-  );
+  http.post("/api/v3/account/login_auth", {
+    avatar,
+    nickname,
+    uuid,
+    openid,
+    app,
+  });
 
 // 使用用户id获取人人讲用户信息
 export const getUserInfo = ({ userId }) =>
@@ -97,29 +94,29 @@ export const getMoreContent = ({ userId, rows, type }) => {
 // 关注
 export const sqyFollow = ({ userId }) => {
   return http.post(
-      "api/follow/followUser",
-      {
-        rrjUserId: userId
+    "api/follow/followUser",
+    {
+      rrjUserId: userId,
+    },
+    {
+      custom: {
+        baseURL: rrjConfig.apiBasePath2,
       },
-      {
-        custom: {
-          baseURL: rrjConfig.apiBasePath2,
-        },
-      }
-  )
-}
+    }
+  );
+};
 
 // 取关
 export const sqyUnfollow = ({ userId }) => {
   return http.post(
-      "api/follow/cancelFollowUser",
-      {
-        rrjUserId: userId
+    "api/follow/cancelFollowUser",
+    {
+      rrjUserId: userId,
+    },
+    {
+      custom: {
+        baseURL: rrjConfig.apiBasePath2,
       },
-      {
-        custom: {
-          baseURL: rrjConfig.apiBasePath2,
-        },
-      }
-  )
-}
+    }
+  );
+};

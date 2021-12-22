@@ -1,10 +1,10 @@
-import { sqyFollow, sqyUnfollow } from '../api';
+import { sqyFollow, sqyUnfollow } from "../api";
 
 export default {
   data() {
     return {
-      followed: false
-    }
+      followed: false,
+    };
   },
   methods: {
     updateFollowed(bool) {
@@ -20,8 +20,8 @@ export default {
             if (e.confirm) {
               await _this.unFollow(userId);
             }
-          }
-        })
+          },
+        });
       } else {
         await this.follow(userId);
       }
@@ -30,8 +30,8 @@ export default {
       const res = await sqyFollow({ userId });
       if (res.code === 200) {
         uni.showToast({
-          title: '关注成功'
-        })
+          title: "关注成功",
+        });
         this.updateFollowed(true);
       }
     },
@@ -41,5 +41,5 @@ export default {
         this.updateFollowed(false);
       }
     },
-  }
-}
+  },
+};

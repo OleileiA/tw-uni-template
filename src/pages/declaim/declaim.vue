@@ -2,25 +2,29 @@
   <!-- 固定容器 -->
   <view class="fixed w-screen h-screen top-0 left-0">
     <!-- 背景  -->
-    <view v-if="richTextObj"
+    <view
+      v-if="richTextObj"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{
         backgroundImage: 'url(' + richTextObj.background + ')',
         backgroundColor: backgroundColor,
-      }">
+      }"
+    >
       <mescroll-body
         class="overflow-scroll"
         ref="mescrollRef"
         @init="mescrollInit"
         @down="downCallback"
         @up="upCallback"
-        :down="downOption">
+        :down="downOption"
+      >
         <!--   下载引导   -->
         <view class="sticky top-0 left-0 w-full h-15d5 z-10">
           <down-load-guide
-              @clickOpenNow="openApp"
-              :avatar="user.avatarUrl"
-              :nickname="user.nickname"></down-load-guide>
+            @clickOpenNow="openApp"
+            :avatar="user.avatarUrl"
+            :nickname="user.nickname"
+          ></down-load-guide>
         </view>
         <!--   自定义头部   -->
         <view class="pt-8d75 pb-std">
@@ -52,9 +56,10 @@
         <!--   鲜花    -->
         <view class="px-std mb-std">
           <send-follow-guide-bar
-              v-if="sendFlowerUsers && sendFlowerUsers.length"
-              :flower-sender="sendFlowerUsers"
-              :flower-num="flowerNum">
+            v-if="sendFlowerUsers && sendFlowerUsers.length"
+            :flower-sender="sendFlowerUsers"
+            :flower-num="flowerNum"
+          >
           </send-follow-guide-bar>
         </view>
         <!--   用户信息    -->
@@ -82,7 +87,7 @@
         <comment-wrapper :comment-count="commentsNum" main-color="#fff">
           <template slot="body">
             <comment-unit
-              v-for="(item) in comments"
+              v-for="item in comments"
               :key="item.id"
               :id="item.id"
               :user-id="item.rrjUserId"
@@ -100,16 +105,19 @@
           </template>
         </comment-wrapper>
         <!--  更多内容     -->
-        <more-content v-if="moreContent && moreContent.length"
-                      :more-content="moreContent"></more-content>
+        <more-content
+          v-if="moreContent && moreContent.length"
+          :more-content="moreContent"
+        ></more-content>
       </mescroll-body>
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
         <column-options
-            @clickGift="openApp"
-            @clickComment="openApp"
-            @clickPraise="openApp"
-            @clickShare="toggleShareGuide"></column-options>
+          @clickGift="openApp"
+          @clickComment="openApp"
+          @clickPraise="openApp"
+          @clickShare="toggleShareGuide"
+        ></column-options>
       </view>
       <!--   底部大按钮   -->
       <view class="fixed l-0 b-0 w-full bottom-0" @click="openApp">
@@ -117,8 +125,7 @@
       </view>
     </view>
     <!--  分享引导  -->
-    <share-guide :show="showShareGuide"
-                 @click.native="toggleShareGuide">
+    <share-guide :show="showShareGuide" @click.native="toggleShareGuide">
     </share-guide>
   </view>
 </template>
@@ -128,9 +135,9 @@ import { getWorksById, getFollowsRankList, getMoreContent } from "../../api";
 import MainStyleMixin from "../../mixins/MainStyleMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
-import FollowMixin from '../../mixins/FollowMixin';
-import ShareMixin from '../../mixins/ShareMixin';
-import OpenAppMixin from '../../mixins/OpenAppMixin';
+import FollowMixin from "../../mixins/FollowMixin";
+import ShareMixin from "../../mixins/ShareMixin";
+import OpenAppMixin from "../../mixins/OpenAppMixin";
 
 import CommentWrapper from "../../components/comment/CommentWrapper";
 import CommentUnit from "../../components/comment/CommentUnit";
@@ -144,9 +151,9 @@ import TimelineShare from "../../components/share/TimelineShare";
 import LargeBtn from "../../components/guide/LargeBtn";
 import ColumnOptions from "../../components/guide/ColumnOptions";
 import MoreContent from "../../components/content/MoreContent";
-import SendFollowGuideBar from '../../components/guide/SendFollowGuideBar';
-import ShareGuide from '../../components/share/ShareGuide';
-import DownLoadGuide from '../../components/guide/DownLoadGuide';
+import SendFollowGuideBar from "../../components/guide/SendFollowGuideBar";
+import ShareGuide from "../../components/share/ShareGuide";
+import DownLoadGuide from "../../components/guide/DownLoadGuide";
 
 export default {
   components: {
@@ -164,10 +171,16 @@ export default {
     TimelineShare,
     LargeBtn,
     ColumnOptions,
-    MoreContent
+    MoreContent,
   },
-  mixins: [PuzzleRichTextMixin, MescrollMixin, MainStyleMixin,
-    FollowMixin, ShareMixin, OpenAppMixin],
+  mixins: [
+    PuzzleRichTextMixin,
+    MescrollMixin,
+    MainStyleMixin,
+    FollowMixin,
+    ShareMixin,
+    OpenAppMixin,
+  ],
   data: function () {
     return {
       downOption: {
@@ -182,7 +195,7 @@ export default {
       content: "",
       moreContent: [],
       flowerNum: 0,
-      sendFlowerUsers: []
+      sendFlowerUsers: [],
     };
   },
   computed: {
@@ -190,7 +203,7 @@ export default {
   },
   async onLoad() {
     this.getQueryParameter({
-      idKey: "declaimId"
+      idKey: "declaimId",
     });
     this.getFollowRankList(this.id);
     await this.getWorksById(this.id);
@@ -199,8 +212,8 @@ export default {
       title: this.music.title,
       link: window.location.href,
       imgUrl: this.music.cover,
-      desc: "一起来朗诵吧！"
-    })
+      desc: "一起来朗诵吧！",
+    });
   },
   methods: {
     async getWorksById(id = 268703) {
@@ -240,6 +253,7 @@ export default {
       }
     },
     async getMoreContent() {
+      console.log("this.user", this.user);
       const res = await getMoreContent({
         userId: this.user.id,
         rows: 6,

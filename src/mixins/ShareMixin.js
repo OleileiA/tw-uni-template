@@ -1,11 +1,11 @@
-import {getUrlParams} from '../common/util';
+import { getUrlParams } from "../common/util";
 
 export default {
   data() {
     return {
       id: 0,
-      showShareGuide: false
-    }
+      showShareGuide: false,
+    };
   },
   methods: {
     toggleShareGuide() {
@@ -20,14 +20,14 @@ export default {
         title,
         link,
         imgUrl,
-        desc
+        desc,
       };
       const wx = window.jWeixin;
       wx.ready(() => {
-        console.log('wx.ready -----------------------');
+        console.log("wx.ready -----------------------");
         wx.updateTimelineShareData(shareData);
         wx.updateAppMessageShareData(shareData);
       });
-    }
-  }
-}
+    },
+  },
+};

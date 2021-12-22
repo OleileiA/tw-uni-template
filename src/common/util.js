@@ -14,6 +14,17 @@ export const getUrlParams = (url) => {
   return uGetArr;
 };
 
+// 拼接queryString
+export const puzzleQueryStr = (queryObj) => {
+  const result = [];
+  Object.keys(queryObj).forEach((key) => {
+    if (queryObj[key]) {
+      result.push(`${key}=${queryObj[key]}`);
+    }
+  });
+  return `${result.join("&")}`;
+};
+
 // 重定向到拥有登录域名注册的html
 export function wxRedirects({ appid, state, backUrl }) {
   window.location.replace(
@@ -49,13 +60,13 @@ export function secFormatTime(num) {
 // 判断安卓还是ios
 export function isAndroidOrIOS() {
   let u = navigator.userAgent;
-  let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+  let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
   let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
   if (isAndroid) {
-    return "android"
+    return "android";
   }
   if (isiOS) {
-    return "ios"
+    return "ios";
   }
-  return false
+  return false;
 }

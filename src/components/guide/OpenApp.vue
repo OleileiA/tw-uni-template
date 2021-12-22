@@ -14,32 +14,32 @@ import Layout from "../common/Layout";
 
 export default {
   components: {
-    Layout
+    Layout,
   },
   props: {
     show: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
     success(e) {
-      console.log('success', e);
+      console.log("success", e);
     },
     error(e) {
-      console.log('error', e);
-    }
+      console.log("error", e);
+    },
   },
   mounted() {
     console.log("mounted -------------------------------------");
     setTimeout(() => {
-      const btn = document.getElementById('launch-btn');
-      btn.addEventListener('launch', e => {
+      const btn = document.getElementById("launch-btn");
+      btn.addEventListener("launch", (e) => {
         // 在此处可设置粘贴板内数据，数据是传递给 app 的参数进，
         console.log(e);
       });
-      btn.addEventListener('error', e => {
-        console.log('error', e);
+      btn.addEventListener("error", (e) => {
+        console.log("error", e);
         // if (uni.getSystemInfoSync().platform == 'ios') {
         //   location.href = 'http://itunes.apple.com/app/id1541793795';
         // }
@@ -47,7 +47,7 @@ export default {
         //   location.href = 'http://app.xiaomi.com/detail/1276426';
         // }
       });
-    }, 1000)
-  }
-}
+    }, 1000);
+  },
+};
 </script>

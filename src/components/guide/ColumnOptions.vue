@@ -3,7 +3,7 @@
     class="relative flex-wrapper-between flex-col w-13 h-65 text-dark text-3d5"
   >
     <view
-        @click="clickGift"
+      @click="clickGift"
       class="w-13 h-13 py-1 flex-wrapper-between flex-col bg-white rounded-full box-border"
     >
       <image
@@ -13,21 +13,21 @@
       <view>礼物</view>
     </view>
     <view
-        @click="clickComment"
+      @click="clickComment"
       class="flex-none w-13 h-13 py-1 flex-wrapper-between flex-col bg-white rounded-full box-border"
     >
       <u-icon name="chat" size="30" color="#1B1B1C"></u-icon>
       <view class="relative top-m1">评论</view>
     </view>
     <view
-        @click="clickPraise"
+      @click="clickPraise"
       class="flex-none w-13 h-13 py-1 flex-wrapper-between flex-col bg-white rounded-full box-border"
     >
       <u-icon name="thumb-up" size="30" color="#1B1B1C"></u-icon>
       <view class="relative top-m1">点赞</view>
     </view>
     <view
-        @click="clickShare"
+      @click="clickShare"
       class="flex-none w-13 h-13 py-1 flex-wrapper-between flex-col bg-white rounded-full box-border"
     >
       <u-icon name="share" size="30" color="#1B1B1C"></u-icon>
@@ -54,7 +54,7 @@ export default {
     },
     clickShare() {
       this.$emit("clickShare");
-    }
-  }
+    },
+  },
 };
 </script>

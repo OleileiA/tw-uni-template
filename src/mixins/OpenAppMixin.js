@@ -1,12 +1,12 @@
-import { isAndroidOrIOS } from '../common/util';
+import { isAndroidOrIOS } from "../common/util";
 import rrjConfig from "../config/index";
 
 export default {
   data() {
     return {
-      phoneType: 'ios',
+      phoneType: "ios",
       showOpenAppModal: false,
-    }
+    };
   },
   methods: {
     openApp() {
@@ -17,6 +17,6 @@ export default {
       } else {
         window.location.href = rrjConfig.androidAppDownloadLink;
       }
-    }
-  }
-}
+    },
+  },
+};
