@@ -24,6 +24,8 @@
             @clickOpenNow="openApp"
             :avatar="user.avatarUrl"
             :nickname="user.nickname"
+            desc="观看更多内容精彩打开拾趣云"
+            custom-avatar="rounded-full"
           ></down-load-guide>
         </view>
         <!--   自定义头部   -->

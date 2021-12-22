@@ -1,6 +1,6 @@
 <template>
   <view class="flex-wrapper-between w-full h-15d5 px-std bg-white box-border">
-    <view class="flex-none w-11d25 h-11d25 rounded-full overflow-hidden">
+    <view class="flex-none w-11d25 h-11d25 overflow-hidden" :class="[customAvatar]">
       <image :src="avatar"></image>
     </view>
     <view class="flex-auto pl-2">
@@ -8,7 +8,7 @@
         nickname
       }}</view>
       <view class="text-gray-400 text-sm line1-overflow"
-        >观看更多内容精彩打开拾趣云</view
+        >{{desc}}</view
       >
     </view>
     <view
@@ -24,6 +24,11 @@ export default {
   props: {
     avatar: String,
     nickname: String,
+    desc: String,
+    customAvatar: {
+      type: String,
+      default: "rounded-full"
+    }
   },
   methods: {
     clickOpenNow() {
