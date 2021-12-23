@@ -70,3 +70,8 @@ export function isAndroidOrIOS() {
   }
   return false;
 }
+
+// 获取系统信息
+export function getSysInfo() {
+  return uni.getSystemInfoSync();
+}

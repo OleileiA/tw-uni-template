@@ -45,8 +45,11 @@
           </user-info-guide-bar>
         </view>
         <!--   内容    -->
-        <view class="px-std box-border">
+        <view id="contentWrapper" class="relative px-std box-border overflow-hidden" :style="{ height: contentHeight + 'px' }">
           <u-parse :content="content"></u-parse>
+          <view class="absolute left-0 bottom-0 w-full">
+            <down-load-cover-guide></down-load-cover-guide>
+          </view>
         </view>
         <!--   评论     -->
         <view></view>
@@ -72,8 +75,9 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import uParse from "uview-ui/components/u-parse/u-parse";
 import { getDynamicDetail } from "../../api";
+import { getSysInfo } from '../../common/util';
+import uParse from "uview-ui/components/u-parse/u-parse";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
 import MescrollBody from "mescroll-uni/mescroll-body";
@@ -81,9 +85,11 @@ import OpenAppMixin from "../../mixins/OpenAppMixin";
 import DownLoadGuide from "../../components/guide/DownLoadGuide";
 import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
 import FollowMixin from "../../mixins/FollowMixin";
+import DownLoadCoverGuide from '../../components/guide/DownLoadCoverGuide';
 
 export default {
   components: {
+    DownLoadCoverGuide,
     MescrollBody,
     uParse,
     DownLoadGuide,
@@ -98,13 +104,19 @@ export default {
       content: "",
       exercise: {},
       customHead: 0,
+      contentHeight: 579
     };
   },
   computed: {
     ...mapState(["userInfo"]),
   },
   async onLoad() {
+    // 加载文章内容
     await this.getDynamicDetail();
+    // 处理位置信息
+    this.$nextTick(() => {
+      this.calContentDomInfo();
+    })
   },
   methods: {
     async getDynamicDetail(exercise_id = 7334, label) {
@@ -132,9 +144,20 @@ export default {
             this.customHead = 0;
           }
         }
-
+      }
+      else {
+        uni.showToast({
+          title: '数据获取失败'
+        })
       }
     },
+
+    calContentDomInfo() {
+      this.$uGetRect("#contentWrapper").then(res => {
+        const { windowHeight } = getSysInfo();
+        this.contentHeight = windowHeight - res.top;
+      })
+    }
   },
 };
 </script>
