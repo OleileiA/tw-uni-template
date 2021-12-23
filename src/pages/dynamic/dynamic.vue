@@ -118,6 +118,19 @@
                          color="#F4350B"
                          @clickBanner="openApp"></download-banner>
       </mescroll-body>
+
+      <!--  侧边栏   -->
+      <view class="fixed w-13 right-std bottom-40">
+        <column-options :show-gift="false"
+                        @clickGift="openApp"
+                        @clickComment="openApp"
+                        @clickPraise="openApp"
+                        @clickShare="toggleShareGuide">
+        </column-options>
+      </view>
+      <!--  分享引导  -->
+      <share-guide :show="showShareGuide" @click.native="toggleShareGuide">
+      </share-guide>
     </view>
   </view>
 </template>
@@ -138,9 +151,14 @@ import CommentWrapper from '../../components/comment/CommentWrapper';
 import CommentUnit from '../../components/comment/CommentUnit';
 import SubCommentUnit from '../../components/comment/SubCommentUnit';
 import DownloadBanner from '../../components/guide/DownloadBanner';
+import ColumnOptions from '../../components/guide/ColumnOptions';
+import ShareMixin from '../../mixins/ShareMixin';
+import ShareGuide from '../../components/share/ShareGuide';
 
 export default {
   components: {
+    ShareGuide,
+    ColumnOptions,
     DownloadBanner,
     SubCommentUnit,
     CommentWrapper,
@@ -151,7 +169,7 @@ export default {
     DownLoadGuide,
     UserInfoGuideBar,
   },
-  mixins: [PuzzleRichTextMixin, MescrollMixin, OpenAppMixin, FollowMixin],
+  mixins: [PuzzleRichTextMixin, MescrollMixin, OpenAppMixin, FollowMixin, ShareMixin],
   data: function () {
     return {
       downOption: {

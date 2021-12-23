@@ -121,7 +121,7 @@ const corePlugins = [
     'position',
     'inset',
     'resize',
-    // 'boxShadow', // *,::before,::after 限制
+    'boxShadow',
     // 'ringWidth', // *,::before,::after 限制
     // 'ringOffsetColor',
     // 'ringOffsetWidth',

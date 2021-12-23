@@ -121,6 +121,7 @@
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
         <column-options
+          :show-gift="true"
           @clickGift="openApp"
           @clickComment="openApp"
           @clickPraise="openApp"
