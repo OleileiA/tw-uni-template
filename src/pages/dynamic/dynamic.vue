@@ -48,7 +48,7 @@
         <view id="contentWrapper" class="relative px-std box-border overflow-hidden" :style="{ height: contentHeight + 'px' }">
           <u-parse :content="content"></u-parse>
           <view class="absolute left-0 bottom-0 w-full">
-            <down-load-cover-guide></down-load-cover-guide>
+            <down-load-cover-guide @click.native="openApp"></down-load-cover-guide>
           </view>
         </view>
         <!--   评论     -->
