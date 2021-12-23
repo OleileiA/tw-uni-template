@@ -77,9 +77,16 @@
           <view class="px-std text-textDarkTheme text-base">
             <view v-for="item in texts" :key="item">{{item}}</view>
           </view>
+          <view class="p-std" v-if="audio">
+            <audio-controller bg="rgba(209, 213, 219, 1)"
+                              text-color="#202020"
+                              cover="../../static/images/sqy_icon.png"
+                              title="录音"
+                              :src="audio"></audio-controller>
+          </view>
         </template>
         <!--   评论     -->
-        <view>
+        <view v-if="comments.length">
           <comment-wrapper :comment-count="0" main-color="#202020">
             <template slot="body">
               <comment-entry :avatar="userInfo.avatar"></comment-entry>
@@ -130,6 +137,7 @@
         </view>
         <!--    引导下载banner    -->
         <download-banner
+            v-if="comments.length"
           desc="下载拾趣云，查看更多评论"
           color="#F4350B"
           @clickBanner="openApp"
@@ -197,9 +205,11 @@ import ShareGuide from "../../components/share/ShareGuide";
 import CommentEntry from "../../components/comment/CommentEntry";
 import DynamicType1Mixin from "../../mixins/DynamicType1Mixin";
 import DynamicType2Mixin from "../../mixins/DynamicType2Mixin";
+import AudioController from '../../components/audio/AudioController';
 
 export default {
   components: {
+    AudioController,
     CommentEntry,
     ShareGuide,
     ColumnOptions,

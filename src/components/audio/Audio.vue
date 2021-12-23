@@ -32,7 +32,7 @@
         activeColor="#FF0000"
         backgroundColor="rgba(255, 255, 255, 0.8)"
       ></slider>
-      <view class="flex-wrapper-between text-sm text-white">
+      <view class="flex-wrapper-between text-sm" :style="{ color: textColor }">
         <view class="flex-1 w-0 font-semibold line1-overflow">{{ title }}</view>
         <view class="flex-1 text-right">{{ curTime }} / {{ tolTime }}</view>
       </view>
@@ -52,6 +52,10 @@ export default {
     value: Number,
     curTime: String,
     tolTime: String,
+    textColor: {
+      type: String,
+      default: "#fff"
+    }
   },
   data() {
     return {};

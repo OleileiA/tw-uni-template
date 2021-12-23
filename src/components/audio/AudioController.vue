@@ -1,5 +1,6 @@
 <template>
-  <view>
+  <view :style="{ backgroundColor: bg }"
+        class="rounded overflow-hidden">
     <custom-audio
       :title="title"
       :cover="cover"
@@ -7,6 +8,7 @@
       :value="value"
       :cur-time="curTime"
       :tol-time="tolTime"
+      :textColor="textColor"
       @clickPlay="playAudio"
       @clickPause="pauseAudio"
       @sliderChange="sliderChange"
@@ -28,6 +30,8 @@ export default {
     title: String,
     cover: String,
     src: String,
+    bg: String,
+    textColor: String
   },
   data() {
     return {

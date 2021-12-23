@@ -6,12 +6,14 @@ export default {
       texts: [],
       images: [],
       maxHeight: 0,
+      audio: ''
     };
   },
   methods: {
     processNormalDynamic(data) {
       const content = JSON.parse(data.content);
       if (content?.length) {
+        let audio = '';
         const texts = [];
         const images = [];
         let maxHeight = 0;
@@ -27,6 +29,9 @@ export default {
           }
           else if (item.type === 'text') {
             texts.push(item.content);
+          }
+          else if (item.type === 'audio') {
+            audio = item.content;
           }
         });
 
@@ -44,6 +49,7 @@ export default {
         }
 
         // 赋值
+        this.audio = audio;
         this.texts = texts;
         this.images = images;
         this.maxHeight = maxHeight;
