@@ -13,7 +13,7 @@ module.exports = {
         themeDark: "#202020",
         golden: "#FFCF57",
         layout: "rgba(0, 0, 0, 0.8)",
-        linerWhite: "rgba(255, 255, 255, 0)"
+        linerWhiteOpacity: "rgba(255, 255, 255, 0)"
       },
       spacing: {
         m1: "-8rpx",
