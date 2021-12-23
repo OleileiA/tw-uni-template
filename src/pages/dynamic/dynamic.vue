@@ -60,7 +60,24 @@
             </view>
           </view>
         </template>
-        <template v-else-if="type === 1"> </template>
+        <template v-else-if="type === 1">
+          <swiper v-if="images.length"
+                  :autoplay="false"
+                  :indicator-dots="true"
+                  indicator-active-color="rgb(250, 93, 92)"
+                  indicator-color="rgb(221, 222, 224)"
+                  :duration="500"
+                  :style="{ height: (maxHeight + 30) + 'px' }">
+            <swiper-item v-for="item in images" :key="item">
+              <image :src="item" class="w-full h-full"
+                     mode="aspectFill"></image>
+            </swiper-item>
+          </swiper>
+          <view class="p-std text-xl font-semibold text-themeDark">{{exercise.title}}</view>
+          <view class="px-std text-textDarkTheme text-base">
+            <view v-for="item in texts" :key="item">{{item}}</view>
+          </view>
+        </template>
         <!--   评论     -->
         <view>
           <comment-wrapper :comment-count="0" main-color="#202020">

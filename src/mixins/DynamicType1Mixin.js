@@ -3,6 +3,7 @@ import { getSysInfo } from "../common/util";
 export default {
   data() {
     return {
+      texts: [],
       images: [],
       maxHeight: 0,
     };
@@ -11,6 +12,7 @@ export default {
     processNormalDynamic(data) {
       const content = JSON.parse(data.content);
       if (content?.length) {
+        const texts = [];
         const images = [];
         let maxHeight = 0;
         let highestWidth = 0;
@@ -22,6 +24,9 @@ export default {
               highestWidth = item.width;
             }
             images.push(item.content);
+          }
+          else if (item.type === 'text') {
+            texts.push(item.content);
           }
         });
 
@@ -39,6 +44,7 @@ export default {
         }
 
         // 赋值
+        this.texts = texts;
         this.images = images;
         this.maxHeight = maxHeight;
       }

@@ -11,6 +11,7 @@ module.exports = {
         theme: "#FF0000",
         dark: "#1B1B1C",
         themeDark: "#202020",
+        textDarkTheme: "#1f1f1f",
         golden: "#FFCF57",
         layout: "rgba(0, 0, 0, 0.8)",
         linerWhiteOpacity: "rgba(255, 255, 255, 0)",
