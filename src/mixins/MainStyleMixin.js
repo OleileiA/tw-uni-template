@@ -21,7 +21,7 @@ export default {
       templateType: 0,
       titleFontColor: "#fff",
       subtitleFontColor: "#fff",
-      backgroundImg: '',
+      backgroundImg: "",
       backgroundColor: "transparent",
       textFontColor: "#fff",
       padding: "15px",

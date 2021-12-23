@@ -51,9 +51,9 @@ export const getDynamicComments = ({ exercise_id, page, pageSize }) => {
       exercise_id,
       page,
       pageSize,
-    }
+    },
   });
-}
+};
 
 /*
  * ---------------------------------------- K歌相关的接口 ------------------------------------------------

@@ -44,7 +44,7 @@ export default {
     uIcon,
   },
   props: {
-    showGift: Boolean
+    showGift: Boolean,
   },
   methods: {
     clickGift() {
