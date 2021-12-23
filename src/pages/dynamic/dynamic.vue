@@ -55,6 +55,7 @@
         <view>
           <comment-wrapper :comment-count="0" main-color="#202020">
             <template slot="body">
+              <comment-entry :avatar="userInfo.avatar"></comment-entry>
               <comment-unit
                   v-for="item in comments"
                   :key="item.id"
@@ -154,9 +155,11 @@ import DownloadBanner from '../../components/guide/DownloadBanner';
 import ColumnOptions from '../../components/guide/ColumnOptions';
 import ShareMixin from '../../mixins/ShareMixin';
 import ShareGuide from '../../components/share/ShareGuide';
+import CommentEntry from '../../components/comment/CommentEntry';
 
 export default {
   components: {
+    CommentEntry,
     ShareGuide,
     ColumnOptions,
     DownloadBanner,
