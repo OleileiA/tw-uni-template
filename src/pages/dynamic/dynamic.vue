@@ -51,8 +51,50 @@
             <down-load-cover-guide @click.native="openApp"></down-load-cover-guide>
           </view>
         </view>
+
         <!--   评论     -->
-        <view></view>
+        <view>
+          <comment-wrapper :comment-count="0" main-color="#202020">
+            <template slot="body">
+              <comment-unit
+                  v-for="item in comments"
+                  :key="item.id"
+                  :id="item.id"
+                  :user-id="item.user_id"
+                  :nickname="item.nickname"
+                  :avatar="item.avatar"
+                  :content="item.comment"
+                  :create-time="item.createdAt"
+                  :update-time="item.updatedAt"
+                  :with-border-bottom="false"
+                  main-color="#202020"
+                  sub-color="#818181"
+                  :praise-count="item.praise_count"
+                  @clickCommentPraise="openApp"
+                  @clickCommentReply="openApp"
+              >
+                <template slot="sub-comment">
+                  <view v-if="item.refer_comment_list && item.refer_comment_list.length"
+                        class="mt-std p-3 bg-gray-200 box-border rounded">
+                    <sub-comment-unit v-for="referComment in item.refer_comment_list"
+                                      :key="referComment.id"
+                                      :refer="referComment.refer"
+                                      :comment="referComment.comment"
+                                      :nickname="referComment.nickname">
+                    </sub-comment-unit>
+                    <view v-if="item.comment_count - 2 > 0"
+                          class="py-1 text-gray-400 text-base"
+                          @click="openApp"
+                    >
+                      查看{{item.comment_count - 2}}条回复>
+                    </view>
+                  </view>
+                </template>
+              </comment-unit>
+            </template>
+          </comment-wrapper>
+        </view>
+
         <!--   用户信息    -->
         <view>
           <user-info-guide-bar
@@ -75,7 +117,7 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import { getDynamicDetail } from "../../api";
+import { getDynamicDetail, getDynamicComments } from "../../api";
 import { getSysInfo } from '../../common/util';
 import uParse from "uview-ui/components/u-parse/u-parse";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
@@ -86,9 +128,15 @@ import DownLoadGuide from "../../components/guide/DownLoadGuide";
 import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
 import FollowMixin from "../../mixins/FollowMixin";
 import DownLoadCoverGuide from '../../components/guide/DownLoadCoverGuide';
+import CommentWrapper from '../../components/comment/CommentWrapper';
+import CommentUnit from '../../components/comment/CommentUnit';
+import SubCommentUnit from '../../components/comment/SubCommentUnit';
 
 export default {
   components: {
+    SubCommentUnit,
+    CommentWrapper,
+    CommentUnit,
     DownLoadCoverGuide,
     MescrollBody,
     uParse,
@@ -104,7 +152,8 @@ export default {
       content: "",
       exercise: {},
       customHead: 0,
-      contentHeight: 579
+      contentHeight: 579,
+      comments: []
     };
   },
   computed: {
@@ -112,7 +161,10 @@ export default {
   },
   async onLoad() {
     // 加载文章内容
-    await this.getDynamicDetail();
+    await Promise.all([
+      this.getDynamicDetail(),
+      this.getDynamicComment()
+    ])
     // 处理位置信息
     this.$nextTick(() => {
       this.calContentDomInfo();
@@ -151,7 +203,52 @@ export default {
         })
       }
     },
+    async getDynamicComment(exercise_id = 7334) {
+      const res = await getDynamicComments({
+        exercise_id,
+        page: 1,
+        pageSize: 3
+      });
+      console.log('getDynamicComment', res);
+      if (res.result === "ok") {
+        this.formatCommentList(res.list);
+      } else {
+        uni.showToast({
+          title: "评论加载失败"
+        })
+      }
+    },
+    formatCommentList(arr) {
+      // 目前只处理评论中的文字
+      this.comments = arr.map((item) => {
 
+        // 一级评论的文字
+        const content = JSON.parse(item.content);
+        if (content?.length) {
+          content.forEach(comment => {
+            if (comment.type === "text")
+              item.comment = comment.content;
+          })
+        }
+
+        // 二级评论
+        if (item?.refer_comment_list?.length) {
+          item.refer_comment_list.forEach((refer_item) => {
+            const referContent = JSON.parse(refer_item.content);
+            if (referContent?.length) {
+              referContent.forEach(refer_comment => {
+                if (refer_comment.type === "text")
+                  refer_item.comment = refer_comment.content;
+                else if (refer_comment.type === "refer")
+                  refer_item.refer = refer_comment.content;
+              })
+            }
+          })
+        }
+
+        return item;
+      })
+    },
     calContentDomInfo() {
       this.$uGetRect("#contentWrapper").then(res => {
         const { windowHeight } = getSysInfo();

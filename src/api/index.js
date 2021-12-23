@@ -44,6 +44,17 @@ export const getDynamicDetail = ({ exercise_id, label }) => {
   });
 };
 
+// 获取动态的评论
+export const getDynamicComments = ({ exercise_id, page, pageSize }) => {
+  return http.get("/api/v3/dynamic/submission/list", {
+    params: {
+      exercise_id,
+      page,
+      pageSize,
+    }
+  });
+}
+
 /*
  * ---------------------------------------- K歌相关的接口 ------------------------------------------------
  */

@@ -37,10 +37,11 @@
             @click="clickCommentPraise"
           >
             <u-icon name="thumb-up" :color="mainColor" size="23"></u-icon>
-            <text>赞</text>
+            <text>{{praiseCount || '赞'}}</text>
           </view>
         </view>
       </view>
+      <slot name="sub-comment"></slot>
     </view>
   </view>
 </template>
@@ -60,6 +61,10 @@ export default {
     updateTime: Number,
     mainColor: String,
     subColor: String,
+    praiseCount: {
+      type: Number,
+      default: 0
+    },
     withBorderBottom: {
       type: Boolean,
       default: true,
