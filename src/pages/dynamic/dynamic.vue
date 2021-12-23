@@ -51,7 +51,6 @@
             <down-load-cover-guide @click.native="openApp"></down-load-cover-guide>
           </view>
         </view>
-
         <!--   评论     -->
         <view>
           <comment-wrapper :comment-count="0" main-color="#202020">
@@ -94,7 +93,10 @@
             </template>
           </comment-wrapper>
         </view>
-
+        <!--    引导下载banner    -->
+        <download-banner desc="下载拾趣云，查看更多评论"
+                         color="#F4350B"
+                         @clickBanner="openApp"></download-banner>
         <!--   用户信息    -->
         <view>
           <user-info-guide-bar
@@ -111,6 +113,10 @@
           </user-info-guide-bar>
         </view>
         <!--   更多信息    -->
+        <!--    引导下载banner    -->
+        <download-banner desc="下载拾趣云，查看更多文章"
+                         color="#F4350B"
+                         @clickBanner="openApp"></download-banner>
       </mescroll-body>
     </view>
   </view>
@@ -131,9 +137,11 @@ import DownLoadCoverGuide from '../../components/guide/DownLoadCoverGuide';
 import CommentWrapper from '../../components/comment/CommentWrapper';
 import CommentUnit from '../../components/comment/CommentUnit';
 import SubCommentUnit from '../../components/comment/SubCommentUnit';
+import DownloadBanner from '../../components/guide/DownloadBanner';
 
 export default {
   components: {
+    DownloadBanner,
     SubCommentUnit,
     CommentWrapper,
     CommentUnit,
