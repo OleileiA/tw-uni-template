@@ -323,7 +323,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .overflow-scroll {
   position: absolute;
   top: 0;

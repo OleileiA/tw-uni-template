@@ -3,7 +3,7 @@
   <view class="fixed w-screen h-screen top-0 left-0">
     <!-- 背景  -->
     <view
-      v-if="richTextObj"
+      v-if="music"
       class="absolute w-full top-0 bottom-0 bg-fixed bg-no-repeat bg-cover"
       :style="{
         backgroundImage: 'url(' + backgroundImg + ')',
@@ -28,90 +28,124 @@
             custom-avatar="rounded-full"
           ></down-load-guide>
         </view>
-        <!--   自定义头部   -->
-        <view class="pt-8d75 pb-std">
-          <custom-head-1
-            :avatar="user.avatarUrl"
-            :nickname="user.nickname"
-            :followed="followed || false"
-            :title="music.title"
-            :created-at="music.createdAt"
-            :read-num="visitNum"
-            :author="music.singer"
-            :title-color="titleFontColor"
-            :sub-title-color="subtitleFontColor"
-            @clickFollow="clickFollow(user.rrjUserId, followed)"
-          ></custom-head-1>
-        </view>
-        <!--   音频播放器   -->
-        <view class="relative p-std">
-          <audio-controller
-            :cover="richTextObj.audio.cover"
-            :title="richTextObj.audio.title"
-            :src="richTextObj.audio.src"
-          ></audio-controller>
-        </view>
-        <!--  富文本   -->
-        <view :style="{ color: textFontColor, padding: padding }">
-          <u-parse :content="content"></u-parse>
-        </view>
-        <!--   鲜花    -->
-        <view class="px-std mb-std">
-          <send-follow-guide-bar
-            v-if="sendFlowerUsers && sendFlowerUsers.length"
-            :flower-sender="sendFlowerUsers"
-            :flower-num="flowerNum"
-          >
-          </send-follow-guide-bar>
-        </view>
-        <!--   用户信息    -->
-        <view class="px-std">
-          <user-info-guide-bar
-            :avatar="user.avatarUrl"
-            :nickname="user.nickname"
-            :followed="followed || false"
-            nickname-color="#fff"
-            @clickFollow="clickFollow(user.rrjUserId, followed)"
-          >
-            <template slot="info-bottom">
-              <view class="text-gray-200 text-sm">
-                <text>粉丝 {{ user.fansCount }}</text>
-                <text class="pl-5">作品 {{ user.drawCount }}</text>
-              </view>
+        <template v-if="template">
+          <!--   自定义头部   -->
+          <view class="pt-8d75 pb-std">
+            <custom-head-1
+                :avatar="user.avatarUrl"
+                :nickname="user.nickname"
+                :followed="followed || false"
+                :title="music.title"
+                :created-at="music.createdAt"
+                :read-num="visitNum"
+                :author="music.singer"
+                :title-color="titleFontColor"
+                :sub-title-color="subtitleFontColor"
+                @clickFollow="clickFollow(user.rrjUserId, followed)"
+            ></custom-head-1>
+          </view>
+          <!--   音频播放器   -->
+          <view class="relative p-std">
+            <audio-controller
+                :cover="richTextObj.audio.cover"
+                :title="richTextObj.audio.title"
+                :src="richTextObj.audio.src"
+            ></audio-controller>
+          </view>
+          <!--  富文本   -->
+          <view :style="{ color: textFontColor, padding: padding }">
+            <u-parse :content="content"></u-parse>
+          </view>
+          <!--   鲜花    -->
+          <view class="px-std mb-std">
+            <send-follow-guide-bar
+                v-if="sendFlowerUsers && sendFlowerUsers.length"
+                :flower-sender="sendFlowerUsers"
+                :flower-num="flowerNum"
+            >
+            </send-follow-guide-bar>
+          </view>
+          <!--   用户信息    -->
+          <view class="px-std">
+            <user-info-guide-bar
+                :avatar="user.avatarUrl"
+                :nickname="user.nickname"
+                :followed="followed || false"
+                nickname-color="#fff"
+                @clickFollow="clickFollow(user.rrjUserId, followed)"
+            >
+              <template slot="info-bottom">
+                <view class="text-gray-200 text-sm">
+                  <text>粉丝 {{ user.fansCount }}</text>
+                  <text class="pl-5">作品 {{ user.drawCount }}</text>
+                </view>
+              </template>
+            </user-info-guide-bar>
+          </view>
+          <!--   share     -->
+          <view class="p-std">
+            <view class="mb-std text-white text-base text-center text-opacity-70">
+              创作不易快来分享支持一下
+            </view>
+            <view class="flex-wrapper-around">
+              <wechat-share></wechat-share>
+              <timeline-share></timeline-share>
+            </view>
+          </view>
+          <!--    评论    -->
+          <comment-wrapper :comment-count="commentsNum" main-color="#fff">
+            <template slot="body">
+              <comment-unit
+                  v-for="item in comments"
+                  :key="item.id"
+                  :id="item.id"
+                  :user-id="item.rrjUserId"
+                  :nickname="item.nickname"
+                  :avatar="item.avatar"
+                  :content="item.comment"
+                  :create-time="item.createdAt"
+                  :update-time="item.updatedAt"
+                  :with-border-bottom="false"
+                  main-color="#fff"
+                  sub-color="rgba(255, 255, 255, 0.7)"
+                  @clickCommentPraise="openApp"
+                  @clickCommentReply="openApp"
+              ></comment-unit>
             </template>
-          </user-info-guide-bar>
-        </view>
-        <!--   share     -->
-        <view class="p-std">
-          <view class="mb-std text-white text-base text-center text-opacity-70">
-            创作不易快来分享支持一下
+          </comment-wrapper>
+        </template>
+        <template v-else>
+          <view>
+            <std-audio-with-lyric
+                :bg="music.cover"
+                :author="music.singer"
+                :name="music.title"
+                :lyric="lyric"></std-audio-with-lyric>
+            <view>{{updatedAt | date('yyyy-mm-dd')}}</view>
           </view>
-          <view class="flex-wrapper-around">
-            <wechat-share></wechat-share>
-            <timeline-share></timeline-share>
-          </view>
-        </view>
-        <!--    评论    -->
-        <comment-wrapper :comment-count="commentsNum" main-color="#fff">
-          <template slot="body">
-            <comment-unit
-              v-for="item in comments"
-              :key="item.id"
-              :id="item.id"
-              :user-id="item.rrjUserId"
-              :nickname="item.nickname"
-              :avatar="item.avatar"
-              :content="item.comment"
-              :create-time="item.createdAt"
-              :update-time="item.updatedAt"
-              :with-border-bottom="false"
-              main-color="#fff"
-              sub-color="rgba(255, 255, 255, 0.7)"
-              @clickCommentPraise="openApp"
-              @clickCommentReply="openApp"
-            ></comment-unit>
-          </template>
-        </comment-wrapper>
+          <!--    评论    -->
+          <comment-wrapper :comment-count="commentsNum" main-color="#202020">
+            <template slot="body">
+              <comment-entry :avatar="userInfo.avatar"></comment-entry>
+              <comment-unit
+                  v-for="item in comments"
+                  :key="item.id"
+                  :id="item.id"
+                  :user-id="item.rrjUserId"
+                  :nickname="item.nickname"
+                  :avatar="item.avatar"
+                  :content="item.comment"
+                  :create-time="item.createdAt"
+                  :update-time="item.updatedAt"
+                  :with-border-bottom="false"
+                  main-color="#202020"
+                  sub-color="#818181"
+                  @clickCommentPraise="openApp"
+                  @clickCommentReply="openApp"
+              ></comment-unit>
+            </template>
+          </comment-wrapper>
+        </template>
         <!--  更多内容     -->
         <more-content
           v-if="moreContent && moreContent.length"
@@ -121,7 +155,7 @@
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40">
         <column-options
-          :show-gift="true"
+          :show-gift="template"
           @clickGift="openApp"
           @clickComment="openApp"
           @clickPraise="openApp"
@@ -163,9 +197,13 @@ import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from "../../components/guide/SendFollowGuideBar";
 import ShareGuide from "../../components/share/ShareGuide";
 import DownLoadGuide from "../../components/guide/DownLoadGuide";
+import CommentEntry from '../../components/comment/CommentEntry';
+import StdAudioWithLyric from '../../components/audio/StdAudioWithLyric';
 
 export default {
   components: {
+    StdAudioWithLyric,
+    CommentEntry,
     DownLoadGuide,
     ShareGuide,
     SendFollowGuideBar,
@@ -200,16 +238,21 @@ export default {
       commentsNum: 0,
       user: null,
       music: null,
+      lyric: [],
       visitNum: 0,
       content: "",
       moreContent: [],
       flowerNum: 0,
       sendFlowerUsers: [],
+      template: false,
+      updatedAt: Date.now()
     };
   },
   computed: {
     ...mapState(["userInfo"]),
   },
+  // 268703
+  // 223268
   async onLoad() {
     this.getQueryParameter({
       idKey: "declaimId",
@@ -235,11 +278,13 @@ export default {
         music,
         visitNum,
         flowerNum,
+        updatedAt
       } = await getWorksById({ id });
+      this.updatedAt = updatedAt;
       if (template) {
+        this.template = true;
         // 带有template表示带有模板
         this.richTextObj = JSON.parse(content);
-        console.log("this.richTextObj", this.richTextObj);
         this.comments = comments;
         this.commentsNum = commentsNum;
         this.user = user;
@@ -251,9 +296,17 @@ export default {
           type: "declaim",
           mainStyle: this.richTextObj.template.mainStyle,
         });
-        this.updateFollowed(user.followed);
       } else {
+        this.template = false;
         // 最普通的模板
+        this.comments = comments;
+        this.commentsNum = commentsNum;
+        this.user = user;
+        this.music = music;
+        this.lyric = JSON.parse(music.content).content;
+        this.visitNum = visitNum;
+        this.flowerNum = flowerNum;
+        this.updateFollowed(user.followed);
       }
     },
     async getFollowRankList(id = 268703) {
@@ -277,7 +330,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .overflow-scroll {
   position: absolute;
   top: 0;

@@ -85,7 +85,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .border-bottom {
   border: 0 solid;
   @apply border-b border-gray-200;
