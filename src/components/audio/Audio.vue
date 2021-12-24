@@ -54,8 +54,8 @@ export default {
     tolTime: String,
     textColor: {
       type: String,
-      default: "#fff"
-    }
+      default: "#fff",
+    },
   },
   data() {
     return {};

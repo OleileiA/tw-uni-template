@@ -6,14 +6,14 @@ export default {
       texts: [],
       images: [],
       maxHeight: 0,
-      audio: ''
+      audio: "",
     };
   },
   methods: {
     processNormalDynamic(data) {
       const content = JSON.parse(data.content);
       if (content?.length) {
-        let audio = '';
+        let audio = "";
         const texts = [];
         const images = [];
         let maxHeight = 0;
@@ -26,11 +26,9 @@ export default {
               highestWidth = item.width;
             }
             images.push(item.content);
-          }
-          else if (item.type === 'text') {
+          } else if (item.type === "text") {
             texts.push(item.content);
-          }
-          else if (item.type === 'audio') {
+          } else if (item.type === "audio") {
             audio = item.content;
           }
         });

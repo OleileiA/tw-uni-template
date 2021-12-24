@@ -1,6 +1,5 @@
 <template>
-  <view :style="{ backgroundColor: bg }"
-        class="rounded overflow-hidden">
+  <view :style="{ backgroundColor: bg }" class="rounded overflow-hidden">
     <custom-audio
       :title="title"
       :cover="cover"
@@ -24,6 +23,6 @@ export default {
   components: {
     "custom-audio": Audio,
   },
-  mixins: [AudioControllerMixin]
+  mixins: [AudioControllerMixin],
 };
 </script>

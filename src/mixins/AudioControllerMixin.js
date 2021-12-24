@@ -1,4 +1,4 @@
-import {secFormatTime} from '../common/util';
+import { secFormatTime } from "../common/util";
 
 let audioContext;
 
@@ -10,7 +10,7 @@ export default {
     bg: String,
     author: String,
     autoPlay: Boolean,
-    textColor: String
+    textColor: String,
   },
   data() {
     return {
@@ -26,7 +26,7 @@ export default {
       audioContext.src = this.src;
       audioContext.onCanplay(() => {
         if (this.autoPlay) this.playAudio();
-      })
+      });
       audioContext.onPlay(() => {
         this.playing = true;
         this.tolTime = secFormatTime(audioContext.duration);
@@ -44,7 +44,7 @@ export default {
         // #endif
         this.curTime = secFormatTime(audioContext.currentTime);
         this.value = parseInt(
-            (audioContext.currentTime / audioContext.duration) * 100
+          (audioContext.currentTime / audioContext.duration) * 100
         );
       });
 
@@ -80,4 +80,4 @@ export default {
   mounted() {
     this.initAudio();
   },
-}
+};

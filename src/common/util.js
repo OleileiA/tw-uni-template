@@ -75,3 +75,19 @@ export function isAndroidOrIOS() {
 export function getSysInfo() {
   return uni.getSystemInfoSync();
 }
+
+// 获取数字的短缩写表示
+export function calShortNum(num) {
+  if (num > 999 && num <= 9999) {
+    num = transNum(num);
+  } else if (num > 9999) {
+    num = transNum2(num);
+  }
+  return num;
+}
+function transNum(num) {
+  return (num / 1000).toFixed(1) + "k";
+}
+function transNum2(num) {
+  return (num / 10000).toFixed(1) + "w";
+}

@@ -32,24 +32,24 @@
           <!--   自定义头部   -->
           <view class="pt-8d75 pb-std">
             <custom-head-1
-                :avatar="user.avatarUrl"
-                :nickname="user.nickname"
-                :followed="followed || false"
-                :title="music.title"
-                :created-at="music.createdAt"
-                :read-num="visitNum"
-                :author="music.singer"
-                :title-color="titleFontColor"
-                :sub-title-color="subtitleFontColor"
-                @clickFollow="clickFollow(user.rrjUserId, followed)"
+              :avatar="user.avatarUrl"
+              :nickname="user.nickname"
+              :followed="followed || false"
+              :title="music.title"
+              :created-at="music.createdAt"
+              :read-num="visitNum"
+              :author="music.singer"
+              :title-color="titleFontColor"
+              :sub-title-color="subtitleFontColor"
+              @clickFollow="clickFollow(user.rrjUserId, followed)"
             ></custom-head-1>
           </view>
           <!--   音频播放器   -->
           <view class="relative p-std">
             <audio-controller
-                :cover="richTextObj.audio.cover"
-                :title="richTextObj.audio.title"
-                :src="richTextObj.audio.src"
+              :cover="richTextObj.audio.cover"
+              :title="richTextObj.audio.title"
+              :src="richTextObj.audio.src"
             ></audio-controller>
           </view>
           <!--  富文本   -->
@@ -59,20 +59,20 @@
           <!--   鲜花    -->
           <view class="px-std mb-std">
             <send-follow-guide-bar
-                v-if="sendFlowerUsers && sendFlowerUsers.length"
-                :flower-sender="sendFlowerUsers"
-                :flower-num="flowerNum"
+              v-if="sendFlowerUsers && sendFlowerUsers.length"
+              :flower-sender="sendFlowerUsers"
+              :flower-num="flowerNum"
             >
             </send-follow-guide-bar>
           </view>
           <!--   用户信息    -->
           <view class="px-std">
             <user-info-guide-bar
-                :avatar="user.avatarUrl"
-                :nickname="user.nickname"
-                :followed="followed || false"
-                nickname-color="#fff"
-                @clickFollow="clickFollow(user.rrjUserId, followed)"
+              :avatar="user.avatarUrl"
+              :nickname="user.nickname"
+              :followed="followed || false"
+              nickname-color="#fff"
+              @clickFollow="clickFollow(user.rrjUserId, followed)"
             >
               <template slot="info-bottom">
                 <view class="text-gray-200 text-sm">
@@ -84,7 +84,9 @@
           </view>
           <!--   share     -->
           <view class="p-std">
-            <view class="mb-std text-white text-base text-center text-opacity-70">
+            <view
+              class="mb-std text-white text-base text-center text-opacity-70"
+            >
               创作不易快来分享支持一下
             </view>
             <view class="flex-wrapper-around">
@@ -96,20 +98,20 @@
           <comment-wrapper :comment-count="commentsNum" main-color="#fff">
             <template slot="body">
               <comment-unit
-                  v-for="item in comments"
-                  :key="item.id"
-                  :id="item.id"
-                  :user-id="item.rrjUserId"
-                  :nickname="item.nickname"
-                  :avatar="item.avatar"
-                  :content="item.comment"
-                  :create-time="item.createdAt"
-                  :update-time="item.updatedAt"
-                  :with-border-bottom="false"
-                  main-color="#fff"
-                  sub-color="rgba(255, 255, 255, 0.7)"
-                  @clickCommentPraise="openApp"
-                  @clickCommentReply="openApp"
+                v-for="item in comments"
+                :key="item.id"
+                :id="item.id"
+                :user-id="item.rrjUserId"
+                :nickname="item.nickname"
+                :avatar="item.avatar"
+                :content="item.comment"
+                :create-time="item.createdAt"
+                :update-time="item.updatedAt"
+                :with-border-bottom="false"
+                main-color="#fff"
+                sub-color="rgba(255, 255, 255, 0.7)"
+                @clickCommentPraise="openApp"
+                @clickCommentReply="openApp"
               ></comment-unit>
             </template>
           </comment-wrapper>
@@ -117,23 +119,30 @@
         <template v-else>
           <view>
             <std-audio-with-lyric
-                :src="drawingUrl"
-                :bg="music.cover"
-                :author="music.singer"
-                :title="music.title"
-                :lyric="lyric"
-                :auto-play="true">
+              :src="drawingUrl"
+              :bg="music.cover"
+              :author="music.singer"
+              :title="music.title"
+              :lyric="lyric"
+              :auto-play="true"
+            >
             </std-audio-with-lyric>
             <!--   用户信息    -->
             <user-info-guide-bar
-                :avatar="user.avatarUrl"
-                :nickname="user.nickname"
-                :followed="followed || false"
-                @clickFollow="clickFollow(user.rrjUserId, followed)">
+              :avatar="user.avatarUrl"
+              :nickname="user.nickname"
+              :followed="followed || false"
+              @clickFollow="clickFollow(user.rrjUserId, followed)"
+            >
             </user-info-guide-bar>
             <view class="px-std box-border">
-              <view class="text-lg text-themeDark font-semibold break-all line2-overflow">{{music.title}}</view>
-              <view class="mt-std text-sm text-gray-400">{{updatedAt | date('yyyy-mm-dd')}}</view>
+              <view
+                class="text-lg text-themeDark font-semibold break-all line2-overflow"
+                >{{ music.title }}</view
+              >
+              <view class="mt-std text-sm text-gray-400">{{
+                updatedAt | date("yyyy-mm-dd")
+              }}</view>
             </view>
           </view>
           <!--    评论    -->
@@ -141,20 +150,20 @@
             <template slot="body">
               <comment-entry :avatar="userInfo.avatar"></comment-entry>
               <comment-unit
-                  v-for="item in comments"
-                  :key="item.id"
-                  :id="item.id"
-                  :user-id="item.rrjUserId"
-                  :nickname="item.nickname"
-                  :avatar="item.avatar"
-                  :content="item.comment"
-                  :create-time="item.createdAt"
-                  :update-time="item.updatedAt"
-                  :with-border-bottom="false"
-                  main-color="#202020"
-                  sub-color="#818181"
-                  @clickCommentPraise="openApp"
-                  @clickCommentReply="openApp"
+                v-for="item in comments"
+                :key="item.id"
+                :id="item.id"
+                :user-id="item.rrjUserId"
+                :nickname="item.nickname"
+                :avatar="item.avatar"
+                :content="item.comment"
+                :create-time="item.createdAt"
+                :update-time="item.updatedAt"
+                :with-border-bottom="false"
+                main-color="#202020"
+                sub-color="#818181"
+                @clickCommentPraise="openApp"
+                @clickCommentReply="openApp"
               ></comment-unit>
             </template>
           </comment-wrapper>
@@ -210,8 +219,8 @@ import MoreContent from "../../components/content/MoreContent";
 import SendFollowGuideBar from "../../components/guide/SendFollowGuideBar";
 import ShareGuide from "../../components/share/ShareGuide";
 import DownLoadGuide from "../../components/guide/DownLoadGuide";
-import CommentEntry from '../../components/comment/CommentEntry';
-import StdAudioWithLyric from '../../components/audio/StdAudioWithLyric';
+import CommentEntry from "../../components/comment/CommentEntry";
+import StdAudioWithLyric from "../../components/audio/StdAudioWithLyric";
 
 export default {
   components: {
@@ -259,7 +268,7 @@ export default {
       sendFlowerUsers: [],
       template: false,
       updatedAt: Date.now(),
-      drawingUrl: ''
+      drawingUrl: "",
     };
   },
   computed: {

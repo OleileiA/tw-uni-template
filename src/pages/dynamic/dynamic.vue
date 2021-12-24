@@ -61,28 +61,37 @@
           </view>
         </template>
         <template v-else-if="type === 1">
-          <swiper v-if="images.length"
-                  :autoplay="false"
-                  :indicator-dots="true"
-                  indicator-active-color="rgb(250, 93, 92)"
-                  indicator-color="rgb(221, 222, 224)"
-                  :duration="500"
-                  :style="{ height: (maxHeight + 30) + 'px' }">
+          <swiper
+            v-if="images.length"
+            :autoplay="false"
+            :indicator-dots="true"
+            indicator-active-color="rgb(250, 93, 92)"
+            indicator-color="rgb(221, 222, 224)"
+            :duration="500"
+            :style="{ height: maxHeight + 30 + 'px' }"
+          >
             <swiper-item v-for="item in images" :key="item">
-              <image :src="item" class="w-full h-full"
-                     mode="aspectFill"></image>
+              <image
+                :src="item"
+                class="w-full h-full"
+                mode="aspectFill"
+              ></image>
             </swiper-item>
           </swiper>
-          <view class="p-std text-xl font-semibold text-themeDark">{{exercise.title}}</view>
+          <view class="p-std text-xl font-semibold text-themeDark">{{
+            exercise.title
+          }}</view>
           <view class="px-std text-textDarkTheme text-base">
-            <view v-for="item in texts" :key="item">{{item}}</view>
+            <view v-for="item in texts" :key="item">{{ item }}</view>
           </view>
           <view class="p-std" v-if="audio">
-            <audio-controller bg="rgba(209, 213, 219, 1)"
-                              text-color="#202020"
-                              cover="../../static/images/sqy_icon.png"
-                              title="录音"
-                              :src="audio"></audio-controller>
+            <audio-controller
+              bg="rgba(209, 213, 219, 1)"
+              text-color="#202020"
+              cover="../../static/images/sqy_icon.png"
+              title="录音"
+              :src="audio"
+            ></audio-controller>
           </view>
         </template>
         <!--   评论     -->
@@ -134,14 +143,13 @@
               </comment-unit>
             </template>
           </comment-wrapper>
+          <!--    引导下载banner    -->
+          <download-banner
+            desc="下载拾趣云，查看更多评论"
+            color="#F4350B"
+            @clickBanner="openApp"
+          ></download-banner>
         </view>
-        <!--    引导下载banner    -->
-        <download-banner
-            v-if="comments.length"
-          desc="下载拾趣云，查看更多评论"
-          color="#F4350B"
-          @clickBanner="openApp"
-        ></download-banner>
         <!--   用户信息    -->
         <view>
           <user-info-guide-bar
@@ -158,6 +166,11 @@
           </user-info-guide-bar>
         </view>
         <!--   更多信息    -->
+        <!--        <waterfall-card :cover="recommendList[0].dynamic.background"-->
+        <!--                        :title="recommendList[0].dynamic.title"-->
+        <!--                        :avatar="recommendList[0].dynamic.avatar"-->
+        <!--                        :nickname="recommendList[0].dynamic.nickname"-->
+        <!--                        :praise-count="recommendList[0].dynamic.praise_count"></waterfall-card>-->
         <!--    引导下载banner    -->
         <download-banner
           desc="下载拾趣云，查看更多文章"
@@ -185,7 +198,11 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import { getDynamicDetail, getDynamicComments } from "../../api";
+import {
+  getDynamicDetail,
+  getDynamicComments,
+  getRecommendDynamic,
+} from "../../api";
 import uParse from "uview-ui/components/u-parse/u-parse";
 import PuzzleRichTextMixin from "../../mixins/PuzzleRichTextMixin";
 import MescrollMixin from "mescroll-uni/mescroll-mixins";
@@ -205,7 +222,7 @@ import ShareGuide from "../../components/share/ShareGuide";
 import CommentEntry from "../../components/comment/CommentEntry";
 import DynamicType1Mixin from "../../mixins/DynamicType1Mixin";
 import DynamicType2Mixin from "../../mixins/DynamicType2Mixin";
-import AudioController from '../../components/audio/AudioController';
+import AudioController from "../../components/audio/AudioController";
 
 export default {
   components: {
@@ -239,6 +256,7 @@ export default {
       },
       exercise: {},
       comments: [],
+      recommendList: [],
     };
   },
   computed: {
@@ -252,6 +270,7 @@ export default {
     await Promise.all([
       this.getDynamicDetail(this.id),
       this.getDynamicComment(this.id),
+      this.getRecommendDynamic(this.id),
     ]);
     // 处理位置信息
     this.$nextTick(() => {
@@ -289,6 +308,15 @@ export default {
         uni.showToast({
           title: "评论加载失败",
         });
+      }
+    },
+    async getRecommendDynamic(exercise_id = 7334) {
+      const res = await getRecommendDynamic({
+        air_item_id: `dynamic_${exercise_id}`,
+      });
+      console.log("getRecommendDynamic ---- ", res);
+      if (res?.result === "ok") {
+        this.recommendList = res.list;
       }
     },
     formatCommentList(arr) {

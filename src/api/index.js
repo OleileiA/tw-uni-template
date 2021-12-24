@@ -55,6 +55,25 @@ export const getDynamicComments = ({ exercise_id, page, pageSize }) => {
   });
 };
 
+// 获取推荐的相关文章的接口
+export const getRecommendDynamic = ({
+  apptype = "wxf476de4970906d40",
+  pageSize = 4,
+  air_item_id,
+  air_item_type = "article",
+  self_expose = 1,
+}) => {
+  return http.get("/api/v3/intelligence/recommend/dynamic", {
+    params: {
+      apptype,
+      air_item_id,
+      air_item_type,
+      self_expose,
+      pageSize,
+    },
+  });
+};
+
 /*
  * ---------------------------------------- K歌相关的接口 ------------------------------------------------
  */
