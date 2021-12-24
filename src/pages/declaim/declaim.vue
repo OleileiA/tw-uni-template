@@ -121,7 +121,9 @@
                 :bg="music.cover"
                 :author="music.singer"
                 :title="music.title"
-                :lyric="lyric"></std-audio-with-lyric>
+                :lyric="lyric"
+                :auto-play="true">
+            </std-audio-with-lyric>
             <view>{{updatedAt | date('yyyy-mm-dd')}}</view>
           </view>
           <!--    评论    -->

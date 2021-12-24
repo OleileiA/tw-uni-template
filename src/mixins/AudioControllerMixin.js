@@ -9,6 +9,7 @@ export default {
     src: String,
     bg: String,
     author: String,
+    autoPlay: Boolean,
     textColor: String
   },
   data() {
@@ -23,6 +24,9 @@ export default {
     initAudio() {
       audioContext = uni.createInnerAudioContext();
       audioContext.src = this.src;
+      audioContext.onCanplay(() => {
+        if (this.autoPlay) this.playAudio();
+      })
       audioContext.onPlay(() => {
         this.playing = true;
         this.tolTime = secFormatTime(audioContext.duration);
