@@ -5,15 +5,22 @@ export default {
     return {
       id: 0,
       showShareGuide: false,
+      fromApp: false
     };
+  },
+  onLoad() {
+
   },
   methods: {
     toggleShareGuide() {
       this.showShareGuide = !this.showShareGuide;
     },
-    getQueryParameter({ idKey }) {
+    getQueryParameter({ idKey, from }) {
       const obj = getUrlParams(window.location.href);
       this.id = obj[idKey];
+      if (obj[from] === "app") {
+        this.fromApp = true;
+      }
     },
     initWxShare({ title, link = window.location.href, imgUrl, desc }) {
       const shareData = {

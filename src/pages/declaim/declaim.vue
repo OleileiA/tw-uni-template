@@ -83,15 +83,15 @@
             </user-info-guide-bar>
           </view>
           <!--   share     -->
-          <view class="p-std">
+          <view class="p-std" v-if="!fromApp">
             <view
               class="mb-std text-white text-base text-center text-opacity-70"
             >
               创作不易快来分享支持一下
             </view>
             <view class="flex-wrapper-around">
-              <wechat-share></wechat-share>
-              <timeline-share></timeline-share>
+              <wechat-share @click.native="toggleShareGuide"></wechat-share>
+              <timeline-share @click.native="toggleShareGuide"></timeline-share>
             </view>
           </view>
           <!--    评论    -->
@@ -175,7 +175,7 @@
         ></more-content>
       </mescroll-body>
       <!--   右侧操作栏   -->
-      <view class="fixed w-13 right-std bottom-40">
+      <view class="fixed w-13 right-std bottom-40" v-if="!fromApp">
         <column-options
           :show-gift="template"
           @clickGift="openApp"
@@ -185,7 +185,7 @@
         ></column-options>
       </view>
       <!--   底部大按钮   -->
-      <view class="fixed l-0 b-0 w-full bottom-0" @click="openApp">
+      <view class="fixed l-0 b-0 w-full bottom-0" @click="openApp" v-if="!fromApp">
         <large-btn btn-text="我也要读"></large-btn>
       </view>
     </view>
@@ -279,6 +279,7 @@ export default {
   async onLoad() {
     this.getQueryParameter({
       idKey: "declaimId",
+      from: "from"
     });
     this.getFollowRankList(this.id);
     await this.getWorksById(this.id);

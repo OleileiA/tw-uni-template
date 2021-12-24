@@ -10,6 +10,7 @@ export default {
   },
   methods: {
     openApp() {
+      if (this.fromApp) return;
       this.phoneType = isAndroidOrIOS();
       // this.showOpenAppModal = true;
       if (this.phoneType === "ios") {
