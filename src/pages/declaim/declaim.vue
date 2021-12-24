@@ -117,9 +117,10 @@
         <template v-else>
           <view>
             <std-audio-with-lyric
+                :src="drawingUrl"
                 :bg="music.cover"
                 :author="music.singer"
-                :name="music.title"
+                :title="music.title"
                 :lyric="lyric"></std-audio-with-lyric>
             <view>{{updatedAt | date('yyyy-mm-dd')}}</view>
           </view>
@@ -245,7 +246,8 @@ export default {
       flowerNum: 0,
       sendFlowerUsers: [],
       template: false,
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
+      drawingUrl: ''
     };
   },
   computed: {
@@ -278,9 +280,11 @@ export default {
         music,
         visitNum,
         flowerNum,
-        updatedAt
+        updatedAt,
+        drawingUrl,
       } = await getWorksById({ id });
       this.updatedAt = updatedAt;
+      this.drawingUrl = drawingUrl;
       if (template) {
         this.template = true;
         // 带有template表示带有模板

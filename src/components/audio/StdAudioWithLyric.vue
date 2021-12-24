@@ -10,10 +10,12 @@
         </view>
       </scroll-view>
       <view class="absolute left-0 bottom-0 flex-wrapper-around w-full h-16d5">
-        <view class="flex-wrapper-between w-51d25 h-9 px-2 text-base bg-white bg-opacity-50 rounded-4xl box-border">
+        <view
+            @click="clickBtn"
+            class="flex-wrapper-between w-51d25 h-9 px-2 text-base bg-white bg-opacity-50 rounded-4xl box-border">
           <image class="flex-none w-6 h-6" src="../../static/images/yinfu.png"></image>
           <view class="flex-auto w-0 text-white overflow-hidden whitespace-nowrap">
-            <view class="scroll-notice">{{name + ' 原唱 ' + author}}</view>
+            <view :class="{ 'scroll-notice': playing }">{{title + ' 原唱 ' + author}}</view>
           </view>
           <u-icon class="flex-none" name="arrow-right" color="#fff" size="16"></u-icon>
         </view>
@@ -27,16 +29,23 @@
 </template>
 <script>
 import uIcon from 'uview-ui/components/u-icon/u-icon';
+import AudioControllerMixin from '../../mixins/AudioControllerMixin';
 export default {
   components: {
     uIcon,
   },
+  mixins: [AudioControllerMixin],
   props: {
-    bg: String,
-    src: String,
-    name: String,
-    author: String,
     lyric: Array,
+  },
+  methods: {
+    clickBtn() {
+      if (this.playing) {
+        this.pauseAudio();
+      } else {
+        this.playAudio();
+      }
+    }
   },
 }
 </script>
