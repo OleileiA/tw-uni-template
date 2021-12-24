@@ -10,46 +10,55 @@
         backgroundColor: backgroundColor,
       }"
     >
-      <mescroll-body
-        class="overflow-scroll"
-        ref="mescrollRef"
-        @init="mescrollInit"
-        @down="downCallback"
-        @up="upCallback"
-        :down="downOption"
-      >
+      <view class="absolute inset-0 z-0" :style="{
+        backdropFilter: glassBlur}"></view>
+
+<!--      <mescroll-body-->
+<!--        class="overflow-scroll z-10"-->
+<!--        ref="mescrollRef"-->
+<!--        :down="downOption"-->
+<!--        :up="upOptions"-->
+<!--        @init="mescrollInit"-->
+<!--        @down="downCallback"-->
+<!--        @up="upCallback"-->
+<!--        @scroll="mescrollScroll"-->
+<!--      >-->
+<!--      </mescroll-body>-->
+      <scroll-view class="overflow-scroll z-10"
+                   scroll-y
+                   @scroll="mescrollScroll">
         <!--   下载引导   -->
         <view class="sticky top-0 left-0 w-full h-15d5 z-10">
           <down-load-guide
-            @clickOpenNow="openApp"
-            :avatar="user.avatarUrl"
-            :nickname="user.nickname"
-            desc="观看更多内容精彩打开拾趣云"
-            custom-avatar="rounded-full"
+              @clickOpenNow="openApp"
+              :avatar="user.avatarUrl"
+              :nickname="user.nickname"
+              desc="观看更多内容精彩打开拾趣云"
+              custom-avatar="rounded-full"
           ></down-load-guide>
         </view>
         <template v-if="template">
           <!--   自定义头部   -->
           <view class="pt-8d75 pb-std">
             <custom-head-1
-              :avatar="user.avatarUrl"
-              :nickname="user.nickname"
-              :followed="followed || false"
-              :title="music.title"
-              :created-at="music.createdAt"
-              :read-num="visitNum"
-              :author="music.singer"
-              :title-color="titleFontColor"
-              :sub-title-color="subtitleFontColor"
-              @clickFollow="clickFollow(user.rrjUserId, followed)"
+                :avatar="user.avatarUrl"
+                :nickname="user.nickname"
+                :followed="followed || false"
+                :title="music.title"
+                :created-at="music.createdAt"
+                :read-num="visitNum"
+                :author="music.singer"
+                :title-color="titleFontColor"
+                :sub-title-color="subtitleFontColor"
+                @clickFollow="clickFollow(user.rrjUserId, followed)"
             ></custom-head-1>
           </view>
           <!--   音频播放器   -->
           <view class="relative p-std">
             <audio-controller
-              :cover="richTextObj.audio.cover"
-              :title="richTextObj.audio.title"
-              :src="richTextObj.audio.src"
+                :cover="richTextObj.audio.cover"
+                :title="richTextObj.audio.title"
+                :src="richTextObj.audio.src"
             ></audio-controller>
           </view>
           <!--  富文本   -->
@@ -59,20 +68,20 @@
           <!--   鲜花    -->
           <view class="px-std mb-std">
             <send-follow-guide-bar
-              v-if="sendFlowerUsers && sendFlowerUsers.length"
-              :flower-sender="sendFlowerUsers"
-              :flower-num="flowerNum"
+                v-if="sendFlowerUsers && sendFlowerUsers.length"
+                :flower-sender="sendFlowerUsers"
+                :flower-num="flowerNum"
             >
             </send-follow-guide-bar>
           </view>
           <!--   用户信息    -->
           <view class="px-std">
             <user-info-guide-bar
-              :avatar="user.avatarUrl"
-              :nickname="user.nickname"
-              :followed="followed || false"
-              nickname-color="#fff"
-              @clickFollow="clickFollow(user.rrjUserId, followed)"
+                :avatar="user.avatarUrl"
+                :nickname="user.nickname"
+                :followed="followed || false"
+                nickname-color="#fff"
+                @clickFollow="clickFollow(user.rrjUserId, followed)"
             >
               <template slot="info-bottom">
                 <view class="text-gray-200 text-sm">
@@ -85,7 +94,7 @@
           <!--   share     -->
           <view class="p-std" v-if="!fromApp">
             <view
-              class="mb-std text-white text-base text-center text-opacity-70"
+                class="mb-std text-white text-base text-center text-opacity-70"
             >
               创作不易快来分享支持一下
             </view>
@@ -98,20 +107,20 @@
           <comment-wrapper :comment-count="commentsNum" main-color="#fff">
             <template slot="body">
               <comment-unit
-                v-for="item in comments"
-                :key="item.id"
-                :id="item.id"
-                :user-id="item.rrjUserId"
-                :nickname="item.nickname"
-                :avatar="item.avatar"
-                :content="item.comment"
-                :create-time="item.createdAt"
-                :update-time="item.updatedAt"
-                :with-border-bottom="false"
-                main-color="#fff"
-                sub-color="rgba(255, 255, 255, 0.7)"
-                @clickCommentPraise="openApp"
-                @clickCommentReply="openApp"
+                  v-for="item in comments"
+                  :key="item.id"
+                  :id="item.id"
+                  :user-id="item.rrjUserId"
+                  :nickname="item.nickname"
+                  :avatar="item.avatar"
+                  :content="item.comment"
+                  :create-time="item.createdAt"
+                  :update-time="item.updatedAt"
+                  :with-border-bottom="false"
+                  main-color="#fff"
+                  sub-color="rgba(255, 255, 255, 0.7)"
+                  @clickCommentPraise="openApp"
+                  @clickCommentReply="openApp"
               ></comment-unit>
             </template>
           </comment-wrapper>
@@ -119,30 +128,30 @@
         <template v-else>
           <view>
             <std-audio-with-lyric
-              :src="drawingUrl"
-              :bg="music.cover"
-              :author="music.singer"
-              :title="music.title"
-              :lyric="lyric"
-              :auto-play="true"
+                :src="drawingUrl"
+                :bg="music.cover"
+                :author="music.singer"
+                :title="music.title"
+                :lyric="lyric"
+                :auto-play="true"
             >
             </std-audio-with-lyric>
             <!--   用户信息    -->
             <user-info-guide-bar
-              :avatar="user.avatarUrl"
-              :nickname="user.nickname"
-              :followed="followed || false"
-              @clickFollow="clickFollow(user.rrjUserId, followed)"
+                :avatar="user.avatarUrl"
+                :nickname="user.nickname"
+                :followed="followed || false"
+                @clickFollow="clickFollow(user.rrjUserId, followed)"
             >
             </user-info-guide-bar>
             <view class="px-std box-border">
               <view
-                class="text-lg text-themeDark font-semibold break-all line2-overflow"
-                >{{ music.title }}</view
+                  class="text-lg text-themeDark font-semibold break-all line2-overflow"
+              >{{ music.title }}</view
               >
               <view class="mt-std text-sm text-gray-400">{{
-                updatedAt | date("yyyy-mm-dd")
-              }}</view>
+                  updatedAt | date("yyyy-mm-dd")
+                }}</view>
             </view>
           </view>
           <!--    评论    -->
@@ -150,30 +159,30 @@
             <template slot="body">
               <comment-entry :avatar="userInfo.avatar"></comment-entry>
               <comment-unit
-                v-for="item in comments"
-                :key="item.id"
-                :id="item.id"
-                :user-id="item.rrjUserId"
-                :nickname="item.nickname"
-                :avatar="item.avatar"
-                :content="item.comment"
-                :create-time="item.createdAt"
-                :update-time="item.updatedAt"
-                :with-border-bottom="false"
-                main-color="#202020"
-                sub-color="#818181"
-                @clickCommentPraise="openApp"
-                @clickCommentReply="openApp"
+                  v-for="item in comments"
+                  :key="item.id"
+                  :id="item.id"
+                  :user-id="item.rrjUserId"
+                  :nickname="item.nickname"
+                  :avatar="item.avatar"
+                  :content="item.comment"
+                  :create-time="item.createdAt"
+                  :update-time="item.updatedAt"
+                  :with-border-bottom="false"
+                  main-color="#202020"
+                  sub-color="#818181"
+                  @clickCommentPraise="openApp"
+                  @clickCommentReply="openApp"
               ></comment-unit>
             </template>
           </comment-wrapper>
         </template>
         <!--  更多内容     -->
         <more-content
-          v-if="moreContent && moreContent.length"
-          :more-content="moreContent"
+            v-if="moreContent && moreContent.length"
+            :more-content="moreContent"
         ></more-content>
-      </mescroll-body>
+      </scroll-view>
       <!--   右侧操作栏   -->
       <view class="fixed w-13 right-std bottom-40" v-if="!fromApp">
         <column-options
@@ -209,7 +218,7 @@ import CommentUnit from "../../components/comment/CommentUnit";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
-import MescrollBody from "mescroll-uni/mescroll-body";
+// import MescrollBody from "mescroll-uni/mescroll-body";
 import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
 import WechatShare from "../../components/share/WechatShare";
 import TimelineShare from "../../components/share/TimelineShare";
@@ -234,7 +243,6 @@ export default {
     AudioController,
     CustomHead1,
     uParse,
-    MescrollBody,
     UserInfoGuideBar,
     WechatShare,
     TimelineShare,
@@ -255,6 +263,10 @@ export default {
       downOption: {
         use: false, // 禁止下拉
       },
+      upOptions: {
+        onScroll: true
+      },
+
       richTextObj: null,
       comments: [],
       commentsNum: 0,

@@ -14,6 +14,9 @@
 // templateType: 1
 // textFontColor: "#D0EBF4"
 // titleFontColor: "#D4E7F2"
+
+import { throttle } from '../common/util';
+let throttledMescroll;
 export default {
   data() {
     return {
@@ -25,6 +28,9 @@ export default {
       backgroundColor: "transparent",
       textFontColor: "#fff",
       padding: "15px",
+
+
+      glassBlur: "saturate(180%) blur(0px)"
     };
   },
   methods: {
@@ -47,5 +53,17 @@ export default {
         }
       }
     },
+
+    // templateTyp = 1 相当于毛玻璃效果
+    mescrollScroll(e) {
+      if (!throttledMescroll) {
+        throttledMescroll = throttle(this._updateGlassBlurStatus, 200);
+      }
+      const { scrollTop, scrollHeight } = e.detail;
+      throttledMescroll(scrollTop, scrollHeight);
+    },
+    _updateGlassBlurStatus(scrollTop) {
+      this.glassBlur = `saturate(180%) blur(${scrollTop / 100}px)`;
+    }
   },
 };
