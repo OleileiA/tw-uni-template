@@ -124,7 +124,17 @@
                 :lyric="lyric"
                 :auto-play="true">
             </std-audio-with-lyric>
-            <view>{{updatedAt | date('yyyy-mm-dd')}}</view>
+            <!--   用户信息    -->
+            <user-info-guide-bar
+                :avatar="user.avatarUrl"
+                :nickname="user.nickname"
+                :followed="followed || false"
+                @clickFollow="clickFollow(user.rrjUserId, followed)">
+            </user-info-guide-bar>
+            <view class="px-std box-border">
+              <view class="text-lg text-themeDark font-semibold break-all line2-overflow">{{music.title}}</view>
+              <view class="mt-std text-sm text-gray-400">{{updatedAt | date('yyyy-mm-dd')}}</view>
+            </view>
           </view>
           <!--    评论    -->
           <comment-wrapper :comment-count="commentsNum" main-color="#202020">
