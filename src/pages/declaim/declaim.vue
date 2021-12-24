@@ -12,18 +12,6 @@
     >
       <view class="absolute inset-0 z-0" :style="{
         backdropFilter: glassBlur}"></view>
-
-<!--      <mescroll-body-->
-<!--        class="overflow-scroll z-10"-->
-<!--        ref="mescrollRef"-->
-<!--        :down="downOption"-->
-<!--        :up="upOptions"-->
-<!--        @init="mescrollInit"-->
-<!--        @down="downCallback"-->
-<!--        @up="upCallback"-->
-<!--        @scroll="mescrollScroll"-->
-<!--      >-->
-<!--      </mescroll-body>-->
       <scroll-view class="overflow-scroll z-10"
                    scroll-y
                    @scroll="mescrollScroll">
@@ -218,7 +206,6 @@ import CommentUnit from "../../components/comment/CommentUnit";
 import AudioController from "../../components/audio/AudioController";
 import CustomHead1 from "../../components/customHead/CustomHead1";
 import uParse from "uview-ui/components/u-parse/u-parse";
-// import MescrollBody from "mescroll-uni/mescroll-body";
 import UserInfoGuideBar from "../../components/guide/UserInfoGuideBar";
 import WechatShare from "../../components/share/WechatShare";
 import TimelineShare from "../../components/share/TimelineShare";
@@ -300,7 +287,7 @@ export default {
       title: this.music.title,
       link: window.location.href,
       imgUrl: this.music.cover,
-      desc: "一起来朗诵吧！",
+      desc: `${this.music.nickname}: 来听听我的朗诵吧`,
     });
   },
   methods: {
